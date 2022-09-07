@@ -3,7 +3,7 @@ import React from 'react';
 import { View, KeyboardAvoidingView, Image, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { CadastroUser } from '../CadastroUser/index';
 
-function Singnin(params) {
+function Singnin( { navigation }, params) {
     return (
         <KeyboardAvoidingView style={styles.background}>
             <View style={styles.containerLogo}>
@@ -31,7 +31,7 @@ function Singnin(params) {
 
 
                 <Text style={styles.textOu}>
-                --------------------------- ou ---------------------------
+                    --------------------------- ou ---------------------------
                 </Text>
 
                 <TextInput
@@ -50,10 +50,13 @@ function Singnin(params) {
                 <TouchableOpacity style={styles.btnSubmit}>
                     <Text style={styles.submitText}>Acessar</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.btnRegister}>
+
+
+                <TouchableOpacity style={styles.btnRegister} onPress={ () => navigation.navigate('Cadastre-se')}>
                     <Text style={styles.registerText}>Criar conta gratuita</Text>
-                    
+
                 </TouchableOpacity>
+
             </View>
         </KeyboardAvoidingView>
 
@@ -80,7 +83,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         width: '90%',
-        paddingBottom:60,
+        paddingBottom: 60,
     },
 
     input: {
