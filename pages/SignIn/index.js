@@ -3,7 +3,7 @@ import React from 'react';
 import { View, KeyboardAvoidingView, Image, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { CadastroUser } from '../CadastroUser/index';
 
-function Singnin( { navigation }, params) {
+function SignIn( { navigation }, params) {
     return (
         <KeyboardAvoidingView style={styles.background}>
             <View style={styles.containerLogo}>
@@ -158,4 +158,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Singnin;
+export default SignIn;
