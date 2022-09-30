@@ -8,7 +8,7 @@ function SignIn( { navigation }, params) {
         <KeyboardAvoidingView style={styles.background}>
             <View style={styles.containerLogo}>
                 <Image
-                    source={require('../../../assets/logo_barber_vip.png')}
+                    source={require('../../assets/logo_barber_vip.png')}
                 />
             </View>
 
@@ -20,7 +20,7 @@ function SignIn( { navigation }, params) {
                     style={styles.buttonFacebookStyle}
                     activeOpacity={0.5}>
                     <Image
-                        source={require('../../../assets/facebook.png')}
+                        source={require('../../assets/facebook.png')}
                         style={styles.buttonImageIconStyle}
                     />
                     <View style={styles.buttonIconSeparatorStyle} />
