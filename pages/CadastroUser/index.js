@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, KeyboardAvoidingView, Image, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
-function CadastroUser(params) {
+function CadastroUser( { navigation },params) {
     return (
         <KeyboardAvoidingView style={styles.background}>
             <View style={styles.containerLogo}>
                 <Image
-                    source={require('../../../assets/logo_barber_vip.png')}
+                    source={require('../../assets/logo_barber_vip.png')}
                 />
             </View>
 
@@ -18,7 +18,7 @@ function CadastroUser(params) {
                     style={styles.buttonFacebookStyle}
                     activeOpacity={0.5}>
                     <Image
-                        source={require('../../../assets/facebook.png')}
+                        source={require('../../assets/facebook.png')}
                         style={styles.buttonImageIconStyle}
                     />
                     <View style={styles.buttonIconSeparatorStyle} />
@@ -54,7 +54,7 @@ function CadastroUser(params) {
                 <TouchableOpacity style={styles.btnSubmit}>
                     <Text style={styles.submitText}>Cadastrar</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.btnRegister}>
+                <TouchableOpacity style={styles.btnRegister} onPress={ () => navigation.navigate('Login')}>
                     <Text style={styles.registerText}>Já possui conta? Login</Text>
                 </TouchableOpacity>
             </View>
