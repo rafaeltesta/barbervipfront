@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, KeyboardAvoidingView, Image, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
-function CadastroServico({ navigation }, params) {
+function EditarServico({ navigation }, params) {
     return (
         <KeyboardAvoidingView style={styles.background}>
             <View style={styles.container}>
@@ -27,7 +27,10 @@ function CadastroServico({ navigation }, params) {
                 />
 
                 <TouchableOpacity style={styles.btnSubmit}>
-                    <Text style={styles.submitText}>Cadastrar Serviço</Text>
+                    <Text style={styles.submitText}>Concluir</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.btnSubmit}>
+                    <Text style={styles.submitText}>Excluir</Text>
                 </TouchableOpacity>
             </View>
         </KeyboardAvoidingView>
@@ -83,4 +86,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default CadastroServico;
+export default EditarServico;
