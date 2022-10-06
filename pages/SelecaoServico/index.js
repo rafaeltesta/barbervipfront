@@ -6,97 +6,106 @@ function SelecaoServico() {
 
     const [servico, setServico] = useState([
         {
-            "nome": "corte maquina",
+            "nome": "Corte maquina",
             "tempo": "25",
             "valor": "30",
         },
         {
-            "nome": "corte navalha",
+            "nome": "Corte navalha",
             "tempo": "27",
             "valor": "35",
         },
         {
-            "nome": "corte simples",
+            "nome": "Corte simples",
             "tempo": "20",
             "valor": "20",
         },
         {
-            "nome": "corte simples",
+            "nome": "Corte simples",
             "tempo": "20",
             "valor": "20",
         },
         {
-            "nome": "corte simples",
+            "nome": "Corte simples",
             "tempo": "20",
             "valor": "20",
         },
         {
-            "nome": "corte simples",
+            "nome": "Corte simples",
             "tempo": "20",
             "valor": "20",
         },
         {
-            "nome": "corte simples",
+            "nome": "Corte simples",
             "tempo": "20",
             "valor": "20",
         },
         {
-            "nome": "corte simples",
+            "nome": "Corte simples",
             "tempo": "20",
             "valor": "20",
         },
         {
-            "nome": "corte simples",
+            "nome": "Corte simples",
             "tempo": "20",
             "valor": "20",
         },
         {
-            "nome": "corte simples",
+            "nome": "Corte simples",
             "tempo": "20",
             "valor": "20",
         },
         {
-            "nome": "corte simples",
+            "nome": "Corte simples",
             "tempo": "20",
             "valor": "20",
         },
         {
-            "nome": "corte simples",
+            "nome": "Corte simples",
             "tempo": "20",
             "valor": "20",
         },
         {
-            "nome": "corte simples",
+            "nome": "Corte simples",
             "tempo": "20",
             "valor": "20",
         },
         {
-            "nome": "corte simples",
+            "nome": "Corte simples",
             "tempo": "20",
             "valor": "20",
         },
         {
-            "nome": "corte simples",
+            "nome": "Corte simples",
             "tempo": "20",
             "valor": "20",
         },
         {
-            "nome": "corte simples",
+            "nome": "Corte simples",
             "tempo": "20",
             "valor": "20",
         },
         {
-            "nome": "corte simples",
+            "nome": "Corte simples",
             "tempo": "20",
             "valor": "20",
         },
         {
-            "nome": "corte simples",
+            "nome": "Corte simples",
             "tempo": "20",
             "valor": "20",
         },
 
     ]);
+
+    function onClickList(item){
+        //TODO: adicionar o que sera feito ao clicar
+        console.log(item);
+    }
+
+    useEffect(() => {
+        //TODO: Adicionar metodo da chamada da API para buscar servicos
+    }, [])
 
     return (
         <>
@@ -105,13 +114,17 @@ function SelecaoServico() {
                     <FlatList
                         style={styles.flatlist}
                         data={servico}
+                        //TODO: ver qual vai ser a chave
+                        keyExtractor={item => item.nome}
                         showsHorizontalScrollIndicator={false}
                         renderItem={({ item }) => (
-                            <View style={styles.ContainerView}>
-                                <Text style={styles.textNome}>{item.nome}</Text>
-                                <Text style={styles.textValor}>Valor: R$ {item.valor}</Text>
-                                <Text style={styles.textTempo}>Tempo: {item.tempo} min</Text>
-                            </View>
+                            <TouchableOpacity onPress={ () => onClickList(item)}>
+                                <View style={styles.ContainerView}>
+                                    <Text style={styles.textNome}>{item.nome}</Text>
+                                    <Text style={styles.textValor}>Valor: R$ {item.valor}</Text>
+                                    <Text style={styles.textTempo}>Tempo: {item.tempo} min</Text>
+                                </View>
+                            </TouchableOpacity>
                         )}
                     />
                 </View>
@@ -132,7 +145,7 @@ const styles = StyleSheet.create({
         padding: 15,
         borderRadius: 4,
         backgroundColor: "#eee",
-    
+
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",

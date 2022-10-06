@@ -11,7 +11,7 @@ function ClienteRoutes() {
     return (
         <Drawer.Navigator useLegacyImplementation>
             <Drawer.Screen name="Seleção Barbearia" component={SelecaoBarbearia} />
-            <Drawer.Screen name="Selecao Servico" component={SelecaoServico} />
+            <Drawer.Screen name="Seleção Serviço" component={SelecaoServico} />
         </Drawer.Navigator>
     )
 
