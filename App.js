@@ -12,8 +12,8 @@ export default function App() {
   return (
     <NavigationContainer>
         {/* <AuthRoutes></AuthRoutes> */}
-        <BarbeiroRoutes></BarbeiroRoutes>
-        {/* <ClienteRoutes></ClienteRoutes> */}
+        {/* <BarbeiroRoutes></BarbeiroRoutes> */}
+        <ClienteRoutes></ClienteRoutes>
     </NavigationContainer>
 
   );
