@@ -11,6 +11,7 @@ function AuthRoutes() {
         <AuthStack.Navigator>
             <AuthStack.Screen name="Login" component={SignIn} />
             <AuthStack.Screen name="Cadastre-se" component={CadastroUser}/>
+            
         </AuthStack.Navigator>
     )
 };

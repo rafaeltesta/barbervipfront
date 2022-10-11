@@ -11,9 +11,9 @@ import BarbeiroRoutes from './routes/barbeiro.routes.js';
 export default function App() {
   return (
     <NavigationContainer>
-        {/* <AuthRoutes></AuthRoutes> */}
+        <AuthRoutes></AuthRoutes>
         {/* <BarbeiroRoutes></BarbeiroRoutes> */}
-        <ClienteRoutes></ClienteRoutes>
+       {/*  <ClienteRoutes></ClienteRoutes> */}
     </NavigationContainer>
 
   );
