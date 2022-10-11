@@ -39,13 +39,15 @@ function SignIn({ navigation }, params) {
           --------------------------- ou ---------------------------
         </Text>
 
+        <Text style={styles.textLabel}>E-MAIL </Text>
         <TextInput
           style={styles.input}
-          placeholder="E-mail"
+          placeholder="Informe seu E-mail"
           autoCorrect={false}
           onChangeText={() => {}}
         />
         {/* Henrique-10\10 - include hide password  */}
+        <Text style={styles.textLabel}>SENHA </Text>
         <View style={styles.inputArea}>
           <TextInput
             style={styles.inputSenha}
@@ -198,6 +200,11 @@ const styles = StyleSheet.create({
     padding: 30,
     fontSize: 16,
   },
+
+  textLabel: {
+    fontSize: 9,
+    fontWeight: 'bold',
+  }
 });
 
 export default SignIn;

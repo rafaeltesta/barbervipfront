@@ -46,18 +46,20 @@ function CadastroUser({ navigation }, params) {
           --------------------------- ou ---------------------------
         </Text>
 
+        <Text style={styles.textLabel}>E-MAIL </Text>
         <TextInput
           style={styles.input}
-          placeholder="Email"
+          placeholder="Informe seu e-mail"
           autoCorrect={false}
           onChangeText={() => {}}
         />
 
         {/* Henrique-10\10 - include hide password  */}
+        <Text style={styles.textLabel}>DIGITE SUA SENHA </Text>
         <View style={styles.inputArea}>
           <TextInput
             style={styles.inputSenha}
-            placeholder="Senha"
+            placeholder="Informe a senha desejada"
             autoCorrect={false}
             onChangeText={(texto) => setInput(texto)}
             value={input}
@@ -76,10 +78,11 @@ function CadastroUser({ navigation }, params) {
           </TouchableOpacity>
         </View>
 
+        <Text style={styles.textLabel}>REPITA SUA SENHA </Text>
         <View style={styles.inputArea}>
           <TextInput
             style={styles.inputSenha}
-            placeholder="Repetir Senha"
+            placeholder="Repita sua senha"
             autoCorrect={false}
             onChangeText={(texto) => setRepeatInput(texto)}
             value={inputRepeat}
@@ -226,6 +229,12 @@ const styles = StyleSheet.create({
     padding: 30,
     fontSize: 16,
   },
+
+  textLabel: {
+    fontSize: 9,
+    fontWeight: 'bold',
+    alignItems: 'flex-start'
+  }
 });
 
 export default CadastroUser;
