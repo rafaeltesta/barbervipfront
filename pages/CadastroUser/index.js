@@ -1,20 +1,15 @@
 import React, { useState } from "react";
-import {
-  View,
-  KeyboardAvoidingView,
-  Image,
-  TextInput,
-  TouchableOpacity,
-  Text,
-  StyleSheet,
+import { View, KeyboardAvoidingView, Image, TextInput, TouchableOpacity, Text, StyleSheet,
 } from "react-native";
 
 /* Henrique 10/10 Included Hide Password */
 import { Ionicons } from "@expo/vector-icons";
-/* Henrique 10/10 Creating email mask */
+
+/* Henrique 10/10 Creating email mask sem sucesso ainda*/
 import { TextInputMask } from "react-native-masked-text";
 
 function CadastroUser({ navigation }, params) {
+  
   /*Henrique 10/10 A partir da Linha52 esta executando estas 2 function */
   const [input, setInput] = useState("");
   const [hidePass, setHidePass] = useState(true);

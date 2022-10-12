@@ -3,12 +3,13 @@ import { Button, StyleSheet,Text, View } from 'react-native';
 /* Instalado a biblioteca - Lottie -> npx expo install lottie-react-native */
 /* Uso para splah's animadas segue o link: https://lottiefiles.com  */
 import LottieView from "lottie-react-native";
+import {Signin} from '../SignIn/index';
 import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 
 
-export default function Splash() {
+ function Splash({ navigation}, params) {
 
-  const NavigationContainer = useNavigationContainerRef()
+
 
   return (
     <View style={style.container}>
@@ -18,8 +19,7 @@ export default function Splash() {
         loop={false}
         style={{width: 400, height: 400}}
         resizeMode="cover"
-        /* Precisa de ajustar na rota da Splash */
-        onAnimationFinish={() => NavigationContainer.navigate('../routes/AuthRoutes')}
+        onAnimationFinish={() => navigation.navigate('Login')}
       />
     </View>
   );
@@ -33,4 +33,6 @@ const style = StyleSheet.create ({
         justifyContent: 'center'
 
     }
-})
+});
+
+export default Splash;
