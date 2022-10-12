@@ -1,13 +1,6 @@
 // import { Montserrat_100Thin } from '@expo-google-fonts/montserrat';
 import React, { useState } from "react";
-import {
-  View,
-  KeyboardAvoidingView,
-  Image,
-  TextInput,
-  TouchableOpacity,
-  Text, StyleSheet,
-} from "react-native";
+import {View, KeyboardAvoidingView, Image, TextInput, TouchableOpacity, Text, StyleSheet, } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { CadastroUser } from "../CadastroUser/index";
 
