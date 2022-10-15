@@ -1,20 +1,24 @@
 import React from "react";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createStackNavigator } from '@react-navigation/stack';
 
 import SplashAnimated from "../pages/SplashAnimated";
 import SignIn from "../pages/SignIn";
 import CadastroUser from "../pages/CadastroUser";
 
-const AuthStack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 function AuthRoutes() {
     return (
-        <AuthStack.Navigator>
-            <AuthStack.Screen name="Splash" component={SplashAnimated} />
-            <AuthStack.Screen name="Login" component={SignIn} />
-            <AuthStack.Screen name="Cadastre-se" component={CadastroUser}/>
-            
-        </AuthStack.Navigator>
+        <Stack.Navigator
+            initialRouteName="Splash"
+            screenOptions={{
+                headerShown: false
+            }}
+        >
+            <Stack.Screen name="Splash" component={SplashAnimated} />
+            <Stack.Screen name="Login" component={SignIn} />
+            <Stack.Screen name="Cadastre-se" component={CadastroUser} />
+        </Stack.Navigator>
     )
 };
 

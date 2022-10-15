@@ -3,19 +3,19 @@ import SelecaoBarbearia from "../pages/SelecaoBarbearia";
 import CadastroServico from "../pages/CadastroServico";
 import SelecaoServico from "../pages/SelecaoServico";
 
-
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
 
 function ClienteRoutes() {
     return (
-        <Drawer.Navigator useLegacyImplementation>
+        <Tab.Navigator useLegacyImplementation>
             {/* Inserir nova rota utilizar drawer.screen  */}
-            <Drawer.Screen name="Seleção Barbearia" component={SelecaoBarbearia} />
-            <Drawer.Screen name="Seleção Serviço" component={SelecaoServico} />
+            <Tab.Screen name="Seleção Barbearia" component={SelecaoBarbearia} />
+            <Tab.Screen name="Seleção Serviço" component={SelecaoServico} />
          
-        </Drawer.Navigator>
+        </Tab.Navigator>
     )
 
 };
