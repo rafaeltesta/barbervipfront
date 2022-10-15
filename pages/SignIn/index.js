@@ -25,7 +25,7 @@ function SignIn({ navigation }, params) {
         console.log(json);
 
         navigation.reset({
-          routes: [{ name: 'Cadastro serviço' }]
+          routes: [{ name: 'ClienteRoutes' }]
         });
       } else {
         alert('E-mail e/ou senha errados!');

@@ -18,7 +18,7 @@ import  AsyncStorage  from '@react-native-async-storage/async-storage';
       const token = await AsyncStorage.getItem('token');
       if(token){
         //validar token
-    
+        navigation.navigate('Login');
       } else {
         navigation.navigate('Login');
       }

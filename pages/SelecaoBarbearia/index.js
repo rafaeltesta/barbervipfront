@@ -4,12 +4,7 @@ import { View, KeyboardAvoidingView, Image, TextInput, TouchableOpacity, Text, S
 function SelecaoBarbearia() {
     return (
         <View >
-            <TextInput
-
-                placeholder="Nome"
-                autoCorrect={false}
-                onChangeText={() => { }}
-            />
+            <Text>Selecao Barbearia</Text>
         </View>
     );
 }
