@@ -1,13 +1,40 @@
 // import { Montserrat_100Thin } from '@expo-google-fonts/montserrat';
 import React, { useState } from "react";
-import {View, KeyboardAvoidingView, Image, TextInput, TouchableOpacity, Text, StyleSheet, } from "react-native";
+import { View, KeyboardAvoidingView, Image, TextInput, TouchableOpacity, Text, StyleSheet, } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { CadastroUser } from "../CadastroUser/index";
+import  AsyncStorage  from '@react-native-async-storage/async-storage';
+import Api from "../../Api";
 
 function SignIn({ navigation }, params) {
   /* A partir da Linha52 esta executandoe estas 2 function */
   const [input, setInput] = useState('');
   const [hidePass, setHidePass] = useState(true);
+
+  const [emailField, setEmailField] = useState('');
+
+  const handleSignClick = async () => {
+    console.log('aciwuahuiwawacw')
+    if (emailField != '' && input != '') {
+
+      let json = await Api.signIn(emailField, input);
+
+      if (json ==='abc') {
+        await AsyncStorage.setItem('token', json);
+
+        console.log(json);
+
+        navigation.reset({
+          routes: [{ name: 'ClienteRoutes' }]
+        });
+      } else {
+        alert('E-mail e/ou senha errados!');
+      }
+
+    } else {
+      alert("Preencha os campos!");
+    }
+  }
 
   return (
     <KeyboardAvoidingView style={styles.background}>
@@ -37,7 +64,8 @@ function SignIn({ navigation }, params) {
           style={styles.input}
           placeholder="Informe seu E-mail"
           autoCorrect={false}
-          onChangeText={() => {}}
+          onChangeText={r => setEmailField(r)}
+          value={emailField}
         />
         {/* Henrique-10\10 - include hide password  */}
         <Text style={styles.textLabel}>SENHA </Text>
@@ -63,7 +91,7 @@ function SignIn({ navigation }, params) {
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity style={styles.btnSubmit}>
+        <TouchableOpacity style={styles.btnSubmit} onPress={handleSignClick}>
           <Text style={styles.submitText}>Acessar</Text>
         </TouchableOpacity>
 
