@@ -11,94 +11,94 @@ function SelecaoServico() {
             "valor": "30",
         },
         {
-            "nome": "Corte navalha",
+            "nome": "dgdgrg",
             "tempo": "27",
             "valor": "35",
         },
         {
-            "nome": "Corte simples",
+            "nome": "drgdrgdr",
             "tempo": "20",
             "valor": "20",
         },
         {
-            "nome": "Corte simples",
+            "nome": "Corte sefefeff",
             "tempo": "20",
             "valor": "20",
         },
         {
-            "nome": "Corte simples",
+            "nome": "Corte sefsefse",
             "tempo": "20",
             "valor": "20",
         },
         {
-            "nome": "Corte simples",
+            "nome": "Corte fssefsefsef",
             "tempo": "20",
             "valor": "20",
         },
         {
-            "nome": "Corte simples",
+            "nome": "Corte sfsffsefseffseff",
             "tempo": "20",
             "valor": "20",
         },
         {
-            "nome": "Corte simples",
+            "nome": "Corte fthfthfthjjftjftj",
             "tempo": "20",
             "valor": "20",
         },
         {
-            "nome": "Corte simples",
+            "nome": "Corte fththjfjftjtjfft",
             "tempo": "20",
             "valor": "20",
         },
         {
-            "nome": "Corte simples",
+            "nome": "Corte ftfthfthjfjftjjf",
             "tempo": "20",
             "valor": "20",
         },
         {
-            "nome": "Corte simples",
+            "nome": "Corte ffthfthfthfthfhth",
             "tempo": "20",
             "valor": "20",
         },
         {
-            "nome": "Corte simples",
+            "nome": "Corte fthftfththfthfthft",
             "tempo": "20",
             "valor": "20",
         },
         {
-            "nome": "Corte simples",
+            "nome": "Corte fhtfthftthft",
             "tempo": "20",
             "valor": "20",
         },
         {
-            "nome": "Corte simples",
+            "nome": "Corte ftthfthh",
             "tempo": "20",
             "valor": "20",
         },
         {
-            "nome": "Corte simples",
+            "nome": "Corte fwefefewef",
             "tempo": "20",
             "valor": "20",
         },
         {
-            "nome": "Corte simples",
+            "nome": "Corte fthfhfthfth",
             "tempo": "20",
             "valor": "20",
         },
         {
-            "nome": "Corte simples",
+            "nome": "Corte fthfthfththt",
             "tempo": "20",
             "valor": "20",
         },
         {
-            "nome": "Corte simples",
+            "nome": "Corte fththfthftfth",
             "tempo": "20",
             "valor": "20",
         },
 
     ]);
 
-    function onClickList(item){
+    function onClickList(item) {
         //TODO: adicionar o que sera feito ao clicar
         console.log(item);
     }
@@ -109,7 +109,9 @@ function SelecaoServico() {
 
     return (
         <>
+
             <View style={styles.container}>
+            <Text style={styles.title}>Selecione um serviço</Text>
                 <View style={styles.body}>
                     <FlatList
                         style={styles.flatlist}
@@ -118,8 +120,9 @@ function SelecaoServico() {
                         keyExtractor={item => item.nome}
                         showsHorizontalScrollIndicator={false}
                         renderItem={({ item }) => (
-                            <TouchableOpacity onPress={ () => onClickList(item)}>
+                            <TouchableOpacity onPress={() => onClickList(item)}>
                                 <View style={styles.ContainerView}>
+                                    <Image source="../assets/perfil.png"></Image>
                                     <Text style={styles.textNome}>{item.nome}</Text>
                                     <Text style={styles.textValor}>Valor: R$ {item.valor}</Text>
                                     <Text style={styles.textTempo}>Tempo: {item.tempo} min</Text>
@@ -141,16 +144,18 @@ export default SelecaoServico;
 const styles = StyleSheet.create({
 
     ContainerView: {
-        marginBottom: 15,
-        padding: 15,
-        borderRadius: 4,
-        backgroundColor: "#eee",
+        marginBottom: 8,
+        padding: 12,
+        borderRadius: 10,
+        backgroundColor: "tomato",
+
 
         display: "flex",
-        flexDirection: "row",
+        flexDirection: "column",
         justifyContent: "space-between",
         borderWidth: 1,
         borderColor: "#eee"
+
     },
 
     textNome: {
@@ -158,28 +163,27 @@ const styles = StyleSheet.create({
         color: "#333",
         fontWeight: "bold",
         marginTop: 4,
-        textAlign: "center"
+        textAlign: "left"
     },
 
     textTempo: {
         fontSize: 12,
         color: "#333",
         marginTop: 4,
-        textAlign: "center"
+        textAlign: "left"
     },
 
     textValor: {
         fontSize: 12,
         color: "#333",
         marginTop: 4,
-        textAlign: "center"
+        textAlign: "left"
     },
 
     container: {
         flex: 1,
         paddingHorizontal: 20,
-        paddingVertical: 20,
-        marginTop: 20,
+        paddingVertical: 10,
         backgroundColor: "#FFF"
     },
 
@@ -189,6 +193,14 @@ const styles = StyleSheet.create({
 
     FlatList: {
         flex: 1,
-        marginTop: 5
+        marginTop: 5,
+
     },
+
+    title: {
+        textAlign: "center",
+        fontSize: 21,
+        backgroundColor: "#FFF",
+        marginBottom: 12,
+    }
 });
