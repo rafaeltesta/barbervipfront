@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, KeyboardAvoidingView, Image, TextInput, TouchableOpacity, Text, StyleSheet, FlatList } from 'react-native';
-
+import { View, TouchableOpacity, Text, StyleSheet, FlatList, Image } from 'react-native';
+import { useNavigation } from "@react-navigation/native";
 
 function SelecaoServico() {
 
@@ -98,8 +98,11 @@ function SelecaoServico() {
 
     ]);
 
+    const navigation = useNavigation();
+
     function onClickList(item) {
         //TODO: adicionar o que sera feito ao clicar
+        navigation.navigate('Selecao barbeiro')
         console.log(item);
     }
 
@@ -109,9 +112,8 @@ function SelecaoServico() {
 
     return (
         <>
-
             <View style={styles.container}>
-            <Text style={styles.title}>Selecione um serviço</Text>
+                <Text style={styles.title}>Selecione o serviço desejado:</Text>
                 <View style={styles.body}>
                     <FlatList
                         style={styles.flatlist}
@@ -120,9 +122,12 @@ function SelecaoServico() {
                         keyExtractor={item => item.nome}
                         showsHorizontalScrollIndicator={false}
                         renderItem={({ item }) => (
-                            <TouchableOpacity onPress={() => onClickList(item)}>
-                                <View style={styles.ContainerView}>
-                                    <Image source="../assets/perfil.png"></Image>
+                            <TouchableOpacity style={styles.ContainerView} onPress={() => onClickList(item)}>
+                                <Image
+                                    source={require('../../assets/servico.png')}
+                                    style={styles.avatar}
+                                />
+                                <View style={styles.ContainerText}>
                                     <Text style={styles.textNome}>{item.nome}</Text>
                                     <Text style={styles.textValor}>Valor: R$ {item.valor}</Text>
                                     <Text style={styles.textTempo}>Tempo: {item.tempo} min</Text>
@@ -148,14 +153,17 @@ const styles = StyleSheet.create({
         padding: 12,
         borderRadius: 10,
         backgroundColor: "tomato",
-
-
         display: "flex",
+        flexDirection: "row",
+        borderWidth: 1,
+        borderColor: "#eee",
+    },
+    
+    ContainerText: {
         flexDirection: "column",
         justifyContent: "space-between",
-        borderWidth: 1,
-        borderColor: "#eee"
-
+        textAlign: "left",
+        marginLeft: 10,
     },
 
     textNome: {
@@ -184,7 +192,8 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingHorizontal: 20,
         paddingVertical: 10,
-        backgroundColor: "#FFF"
+        backgroundColor: "#FFF",
+        marginTop: 33,
     },
 
     body: {
@@ -202,5 +211,12 @@ const styles = StyleSheet.create({
         fontSize: 21,
         backgroundColor: "#FFF",
         marginBottom: 12,
-    }
+    },
+
+        avatar: {
+         width: 50, 
+         height: 50, 
+         borderRadius: 400 / 2,
+         marginTop: 7
+    },
 });
