@@ -25,7 +25,7 @@ function SignIn({ navigation }, params) {
         console.log(json);
 
         navigation.reset({
-          routes: [{ name: 'ClienteRoutes' }]
+          routes: [{ name: 'MainTab' }]
         });
       } else {
         alert('E-mail e/ou senha errados!');

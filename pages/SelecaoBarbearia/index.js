@@ -1,115 +1,102 @@
 import React, { useState, useEffect } from 'react';
-import { View, KeyboardAvoidingView, Image, TextInput, TouchableOpacity, Text, StyleSheet, FlatList } from 'react-native';
-
+import { View, TouchableOpacity, Text, StyleSheet, FlatList, Image } from 'react-native';
+import { useNavigation } from "@react-navigation/native";
 
 function SelecaoBarbearia() {
 
     const [servico, setServico] = useState([
         {
-            "nome": "Corte maquina",
-            "tempo": "25",
-            "valor": "30",
+            "nome": "Los magnos",
+            "endereco": "adawddddddddddddd25",
         },
         {
-            "nome": "Corte navalha",
-            "tempo": "27",
-            "valor": "35",
+            "nome": "Peaky Blinderds Barber",
+            "endereco": "adwwwwwwwwww27",
         },
         {
-            "nome": "Corte simples",
-            "tempo": "20",
-            "valor": "20",
+            "nome": "Pituleta Barber shop",
+            "endereco": "awddddddddddddd20",
         },
         {
-            "nome": "Corte simples",
-            "tempo": "20",
-            "valor": "20",
+            "nome": "Madara Ihuka shop",
+            "endereco": "awddddddddddddd20",
         },
         {
-            "nome": "Corte simples",
-            "tempo": "20",
-            "valor": "20",
+            "nome": "Pill Barber",
+            "endereco": "awdawdawdawdawdaw",
         },
         {
-            "nome": "Corte simples",
-            "tempo": "20",
-            "valor": "20",
+            "nome": "Piu Barber Shop",
+            "endereco": "awddddddd20",
         },
         {
-            "nome": "Corte simples",
-            "tempo": "20",
-            "valor": "20",
+            "nome": "Corte sfsffsefseffseff",
+            "endereco": "2awdawddddddddd0",
         },
         {
-            "nome": "Corte simples",
-            "tempo": "20",
-            "valor": "20",
+            "nome": "Corte fthfthfthjjftjftj",
+            "endereco": "2awdawdawdawdawdawdawdawdf0",
         },
         {
-            "nome": "Corte simples",
-            "tempo": "20",
-            "valor": "20",
+            "nome": "Corte fththjfjftjtjfft",
+            "endereco": "2sefsefsefsefsefsefsefsefsefsefsef0",
         },
         {
-            "nome": "Corte simples",
-            "tempo": "20",
-            "valor": "20",
+            "nome": "Corte ftfthfthjfjftjjf",
+            "endereco": "20sefsefsefsefsef",
         },
         {
-            "nome": "Corte simples",
-            "tempo": "20",
-            "valor": "20",
+            "nome": "Corte ffthfthfthfthfhth",
+            "endereco": "awdawawfafsefgsg",
         },
         {
-            "nome": "Corte simples",
-            "tempo": "20",
-            "valor": "20",
+            "nome": "Corte fthftfththfthfthft",
+            "endereco": "20",
         },
         {
-            "nome": "Corte simples",
-            "tempo": "20",
-            "valor": "20",
+            "nome": "Corte fhtfthftthft",
+            "endereco": "20",
         },
         {
-            "nome": "Corte simples",
-            "tempo": "20",
-            "valor": "20",
+            "nome": "Corte ftthfthh",
+            "endereco": "20",
         },
         {
-            "nome": "Corte simples",
-            "tempo": "20",
-            "valor": "20",
+            "nome": "Corte fwefefewef",
+            "endereco": "20",
         },
         {
-            "nome": "Corte simples",
-            "tempo": "20",
-            "valor": "20",
+            "nome": "Corte fthfhfthfth",
+            "endereco": "20",
         },
         {
-            "nome": "Corte simples",
-            "tempo": "20",
-            "valor": "20",
+            "nome": "Corte fthfthfththt",
+            "endereco": "20",
         },
         {
-            "nome": "Corte simples",
-            "tempo": "20",
-            "valor": "20",
+            "nome": "Corte fththfthftfth",
+            "endereco": "20",
         },
 
     ]);
 
-    function onClickList(item){
+    const navigation = useNavigation();
+
+    function onClickList(item) {
         //TODO: adicionar o que sera feito ao clicar
+        navigation.navigate('Selecao servico');
         console.log(item);
     }
 
     useEffect(() => {
-        //TODO: Adicionar metodo da chamada da API para buscar servicos
+        //TODO: Adicionar metodo da chamada da API para buscar barbearias
     }, [])
 
     return (
         <>
+
             <View style={styles.container}>
+                <Text style={styles.title}>Selecione a barbearia desejada:</Text>
                 <View style={styles.body}>
                     <FlatList
                         style={styles.flatlist}
@@ -118,11 +105,14 @@ function SelecaoBarbearia() {
                         keyExtractor={item => item.nome}
                         showsHorizontalScrollIndicator={false}
                         renderItem={({ item }) => (
-                            <TouchableOpacity onPress={ () => onClickList(item)}>
-                                <View style={styles.ContainerView}>
+                            <TouchableOpacity style={styles.ContainerView} onPress={() => onClickList(item)}>
+                                <Image
+                                        source={require('../../assets/barber.png')}
+                                        style={styles.avatar}
+                                    />
+                                <View style={styles.ContainerText}>
                                     <Text style={styles.textNome}>{item.nome}</Text>
-                                    <Text style={styles.textValor}>Valor: R$ {item.valor}</Text>
-                                    <Text style={styles.textTempo}>Tempo: {item.tempo} min</Text>
+                                    <Text style={styles.textEndereco}>Endereço: {item.endereco}</Text>
                                 </View>
                             </TouchableOpacity>
                         )}
@@ -141,16 +131,21 @@ export default SelecaoBarbearia;
 const styles = StyleSheet.create({
 
     ContainerView: {
-        marginBottom: 15,
-        padding: 15,
-        borderRadius: 4,
-        backgroundColor: "#eee",
-
+        marginBottom: 8,
+        padding: 12,
+        borderRadius: 10,
+        backgroundColor: "tomato",
         display: "flex",
         flexDirection: "row",
-        justifyContent: "space-between",
         borderWidth: 1,
-        borderColor: "#eee"
+        borderColor: "#eee",
+    },
+    
+    ContainerText: {
+        flexDirection: "column",
+        justifyContent: "space-between",
+        textAlign: "left",
+        marginLeft: 10,
     },
 
     textNome: {
@@ -158,29 +153,21 @@ const styles = StyleSheet.create({
         color: "#333",
         fontWeight: "bold",
         marginTop: 4,
-        textAlign: "center"
+
     },
 
-    textTempo: {
+    textEndereco: {
         fontSize: 12,
         color: "#333",
         marginTop: 4,
-        textAlign: "center"
-    },
 
-    textValor: {
-        fontSize: 12,
-        color: "#333",
-        marginTop: 4,
-        textAlign: "center"
     },
 
     container: {
         flex: 1,
         paddingHorizontal: 20,
-        paddingVertical: 20,
-        marginTop: 20,
-        backgroundColor: "#FFF"
+        paddingVertical: 10,
+        backgroundColor: "#FFF",
     },
 
     body: {
@@ -189,6 +176,21 @@ const styles = StyleSheet.create({
 
     FlatList: {
         flex: 1,
-        marginTop: 5
+        marginTop: 5,
+
     },
+
+    title: {
+        textAlign: "center",
+        fontSize: 21,
+        backgroundColor: "#FFF",
+        marginBottom: 12,
+    },
+    avatar: {
+         width: 50, 
+         height: 50, 
+         borderRadius: 400 / 2,
+    },
+
+
 });

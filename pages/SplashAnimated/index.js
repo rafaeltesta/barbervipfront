@@ -1,10 +1,9 @@
 import React, { useEffect }  from 'react';
-import { Button, StyleSheet,Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 /* Instalado a biblioteca - Lottie -> npx expo install lottie-react-native */
 /* Uso para splah's animadas segue o link: https://lottiefiles.com  */
 import LottieView from "lottie-react-native";
-import {Signin} from '../SignIn/index';
-import { NavigationContainer, useNavigationContainerRef, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import  AsyncStorage  from '@react-native-async-storage/async-storage';
 
 
