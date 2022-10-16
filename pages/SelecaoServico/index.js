@@ -102,7 +102,7 @@ function SelecaoServico() {
 
     function onClickList(item) {
         //TODO: adicionar o que sera feito ao clicar
-        navigation.navigate('')
+        navigation.navigate('Selecao barbeiro')
         console.log(item);
     }
 
@@ -212,12 +212,11 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFF",
         marginBottom: 12,
     },
-    // avatar: {
-    //      width: 50, 
-    //      height: 50, 
-    //      borderRadius: 400 / 2,
-    //      flex: 1,
-    //      alignSelf: "flex-end",
 
-    // }
+        avatar: {
+         width: 50, 
+         height: 50, 
+         borderRadius: 400 / 2,
+         marginTop: 7
+    },
 });
