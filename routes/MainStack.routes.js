@@ -7,6 +7,7 @@ import CadastroUser from "../pages/CadastroUser";
 import MainTab from "./MainTab.routes";
 import SelecaoServico from "../pages/SelecaoServico";
 import SelecaoBarbeiro from "../pages/SelecaoBarbeiro";
+import SelecaoBarbearia from "../pages/SelecaoBarbearia";
 
 const Stack = createStackNavigator();
 
@@ -24,6 +25,7 @@ function MainStack() {
             <Stack.Screen name="MainTab" component={MainTab} />
             <Stack.Screen name="Selecao servico" component={SelecaoServico} />
             <Stack.Screen name="Selecao barbeiro" component={SelecaoBarbeiro} />
+            <Stack.Screen name="Selecao barbearia" component={SelecaoBarbearia} />
         </Stack.Navigator>
     )
 };

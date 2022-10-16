@@ -94,7 +94,6 @@ function SelecaoBarbearia() {
 
     return (
         <>
-
             <View style={styles.container}>
                 <Text style={styles.title}>Selecione a barbearia desejada:</Text>
                 <View style={styles.body}>
