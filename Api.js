@@ -26,7 +26,7 @@ export default {
         //     body: JSON.stringify({email, password})
         // });
         // const json = await req.json();        
-        return ('abc');
+        return ({token: 'abc', tipo: '1'});
     },
     signUp: async (name, email, password) => {
         // const req = await fetch(`${BASE_API}/user`, {

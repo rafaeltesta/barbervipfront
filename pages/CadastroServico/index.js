@@ -1,33 +1,69 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, KeyboardAvoidingView, Image, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { useNavigation } from "@react-navigation/native";
 
-function CadastroServico({ navigation }, params) {
+function CadastroServico() {
+
+    const [nome, setNome] = useState('');
+    const [valor, setValor] = useState('');
+    const [tempo, setTempo] = useState('');
+
+    function handleSubmit() {
+
+        //TODO: chama api cadastro
+
+        console.log(nome)
+        console.log(valor)
+        console.log(tempo)
+
+        alert("Cadastrado com sucesso!");
+    }
+
+    function btnEditar() {
+        navigation.navigate('Lista servicos');
+    }
+
+    const navigation = useNavigation();
+
     return (
         <KeyboardAvoidingView style={styles.background}>
+            <Text style={styles.title}>Cadastrado de serviço</Text>
             <View style={styles.container}>
 
+                <Text style={styles.textLabel}>Nome</Text>
                 <TextInput
                     style={styles.input}
                     placeholder="Nome"
                     autoCorrect={false}
-                    onChangeText={() => { }}
+                    value={nome}
+                    onChangeText={e => setNome(e)}
                 />
+                <Text style={styles.textLabel}>Valor</Text>
                 <TextInput
                     style={styles.input}
                     placeholder="Valor"
                     autoCorrect={false}
-                    onChangeText={() => { }}
+                    value={valor}
+                    onChangeText={e => setValor(e)}
+                    keyboardType="decimal-pad"
                 />
-
+                <Text style={styles.textLabel}>Tempo</Text>
                 <TextInput
                     style={styles.input}
                     placeholder="Tempo"
                     autoCorrect={false}
-                    onChangeText={() => { }}
+                    value={tempo}
+                    onChangeText={e => setTempo(e)}
+                    keyboardType="numeric"
                 />
 
-                <TouchableOpacity style={styles.btnSubmit}>
+                <TouchableOpacity style={styles.btnSubmit} onPress={handleSubmit}>
                     <Text style={styles.submitText}>Cadastrar Serviço</Text>
+                </TouchableOpacity>
+
+                
+                <TouchableOpacity style={styles.btnEditar} onPress={btnEditar}>
+                    <Text style={styles.submitText}>Editar um Serviço</Text>
                 </TouchableOpacity>
             </View>
         </KeyboardAvoidingView>
@@ -78,6 +114,27 @@ const styles = StyleSheet.create({
     submitText: {
         color: '#fff',
         fontSize: 18
+    },
+
+    textLabel: {
+        fontSize: 9,
+        fontWeight: 'bold',
+    },
+    title: {
+        textAlign: "center",
+        fontSize: 21,
+        backgroundColor: "#FFF",
+        marginBottom: 12,
+    },
+
+    btnEditar: {
+        backgroundColor: '#333',
+        width: '90%',
+        height: 45,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 7,
+        marginTop: 50,
     },
 
 

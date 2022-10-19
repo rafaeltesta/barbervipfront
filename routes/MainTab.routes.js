@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import SelecaoBarbearia from "../pages/SelecaoBarbearia";
 import Home from "../pages/Home";
 import Reservas from "../pages/Reservas";
+import CadastroServico from "../pages/CadastroServico";
 
 
 const Tab = createBottomTabNavigator();
@@ -37,6 +38,7 @@ function MainTab() {
             <Tab.Screen name="Home" component={Home} />
             <Tab.Screen name="Agendar" component={SelecaoBarbearia} />
             <Tab.Screen name="Reservas" component={Reservas} />
+            <Tab.Screen name="C Serviço" component={CadastroServico} />
         </Tab.Navigator>
     )
 

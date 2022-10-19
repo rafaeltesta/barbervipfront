@@ -19,10 +19,16 @@ function SignIn({ navigation }, params) {
 
       let json = await Api.signIn(emailField, input);
 
-      if (json ==='abc') {
-        await AsyncStorage.setItem('token', json);
-
+      if (json) {
+        await AsyncStorage.setItem('token', json.token);
+        await AsyncStorage.setItem('tipo', json.tipo);
         console.log(json);
+        if(json.tipo === '1'){
+          console.log('1')
+        }else{
+          console.log('2')
+        }
+        
 
         navigation.reset({
           routes: [{ name: 'MainTab' }]

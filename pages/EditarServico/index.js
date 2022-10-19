@@ -1,36 +1,57 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, KeyboardAvoidingView, Image, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
-function EditarServico({ navigation }, params) {
+function CadastroServico({ navigation }, params) {
+
+    const [nome, setNome] = useState('');
+    const [valor, setValor] = useState('');
+    const [tempo, setTempo] = useState('');
+
+    function handleSubmit() {
+
+        //TODO: chama api cadastro
+
+        console.log(nome)
+        console.log(valor)
+        console.log(tempo)
+
+        alert("Editado com sucesso!");
+    }
+
     return (
         <KeyboardAvoidingView style={styles.background}>
+            <Text style={styles.title}>Editar serviço</Text>
             <View style={styles.container}>
 
+                <Text style={styles.textLabel}>Nome</Text>
                 <TextInput
                     style={styles.input}
                     placeholder="Nome"
                     autoCorrect={false}
-                    onChangeText={() => { }}
+                    value={nome}
+                    onChangeText={e => setNome(e)}
                 />
+                <Text style={styles.textLabel}>Valor</Text>
                 <TextInput
                     style={styles.input}
                     placeholder="Valor"
                     autoCorrect={false}
-                    onChangeText={() => { }}
+                    value={valor}
+                    onChangeText={e => setValor(e)}
+                    keyboardType="decimal-pad"
                 />
-
+                <Text style={styles.textLabel}>Tempo</Text>
                 <TextInput
                     style={styles.input}
                     placeholder="Tempo"
                     autoCorrect={false}
-                    onChangeText={() => { }}
+                    value={tempo}
+                    onChangeText={e => setTempo(e)}
+                    keyboardType="numeric"
                 />
 
-                <TouchableOpacity style={styles.btnSubmit}>
-                    <Text style={styles.submitText}>Concluir</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.btnSubmit}>
-                    <Text style={styles.submitText}>Excluir</Text>
+                <TouchableOpacity style={styles.btnSubmit} onPress={handleSubmit}>
+                    <Text style={styles.submitText}>Editar Serviço</Text>
                 </TouchableOpacity>
             </View>
         </KeyboardAvoidingView>
@@ -83,7 +104,19 @@ const styles = StyleSheet.create({
         fontSize: 18
     },
 
+    textLabel: {
+        fontSize: 9,
+        fontWeight: 'bold',
+    },
+    title: {
+        marginTop: 120,
+        textAlign: "center",
+        fontSize: 21,
+        backgroundColor: "#FFF",
+        marginBottom: 12,
+    },
+
 
 });
 
-export default EditarServico;
+export default CadastroServico;
