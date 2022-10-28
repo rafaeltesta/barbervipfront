@@ -3,6 +3,9 @@ import { add } from 'react-native-reanimated';
 
 const BASE_API = 'https://api.b7web.com.br/devbarber/api';
 
+
+
+
 export default {
     checkToken: async (token) => {
         // const req = await fetch(`${BASE_API}/auth/refresh`, {
@@ -26,7 +29,7 @@ export default {
         //     body: JSON.stringify({email, password})
         // });
         // const json = await req.json();        
-        return ({token: 'abc', tipo: '1'});
+        return ({token: 'abc', tipo: ''});
     },
     signUp: async (name, email, password) => {
         // const req = await fetch(`${BASE_API}/user`, {
@@ -52,4 +55,7 @@ export default {
     //     return json;
     // }
 
+
+    
 };
+

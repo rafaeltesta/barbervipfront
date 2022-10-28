@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, FlatList, Image } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
+import api from '../../services/api';
 
 function SelecaoBarbearia() {
 
@@ -80,6 +81,22 @@ function SelecaoBarbearia() {
 
     ]);
 
+    const [allBarbearias, setAllBarbearias] = useState([]);
+
+
+    useEffect(() => {
+        getAllBarbearias();
+    }, [])
+
+
+    async function getAllBarbearias() {
+        const response = await api.get('/barbearia',);
+        setAllBarbearias(response.data);
+    }
+
+
+
+
     const navigation = useNavigation();
 
     function onClickList(item) {
@@ -99,7 +116,7 @@ function SelecaoBarbearia() {
                 <View style={styles.body}>
                     <FlatList
                         style={styles.flatlist}
-                        data={servico}
+                        data={allBarbearias}
                         //TODO: ver qual vai ser a chave
                         keyExtractor={item => item.nome}
                         showsHorizontalScrollIndicator={false}

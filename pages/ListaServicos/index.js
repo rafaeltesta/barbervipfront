@@ -4,7 +4,9 @@ import { useNavigation } from "@react-navigation/native";
 
 function ListaServicos() {
 
-    const [servico, setServico] = useState([
+    const navigation = useNavigation();
+
+    const [allServicos, setAllServicos] = useState([
         {
             "nome": "Corte maquina",
             "tempo": "25",
@@ -98,17 +100,22 @@ function ListaServicos() {
 
     ]);
 
-    const navigation = useNavigation();
+
+    useEffect(() => {
+        getAllServicos();
+    }, [])
+
+
+    async function getAllServicos() {
+        // const response = await api.get('/participante',);
+        // setServicos(response.data);
+    }
 
     function onClickList(item) {
         //TODO: adicionar o que sera feito ao clicar
         navigation.navigate('Editar servico')
         console.log(item);
     }
-
-    useEffect(() => {
-        //TODO: Adicionar metodo da chamada da API para buscar servicos
-    }, [])
 
     return (
         <>
@@ -117,7 +124,7 @@ function ListaServicos() {
                 <View style={styles.body}>
                     <FlatList
                         style={styles.flatlist}
-                        data={servico}
+                        data={allServicos}
                         //TODO: ver qual vai ser a chave
                         keyExtractor={item => item.nome}
                         showsHorizontalScrollIndicator={false}
@@ -158,7 +165,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#eee",
     },
-    
+
     ContainerText: {
         flexDirection: "column",
         justifyContent: "space-between",
@@ -213,10 +220,10 @@ const styles = StyleSheet.create({
         marginBottom: 12,
     },
 
-        avatar: {
-         width: 50, 
-         height: 50, 
-         borderRadius: 400 / 2,
-         marginTop: 7
+    avatar: {
+        width: 50,
+        height: 50,
+        borderRadius: 400 / 2,
+        marginTop: 7
     },
 });

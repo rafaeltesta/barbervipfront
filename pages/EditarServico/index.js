@@ -1,22 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, KeyboardAvoidingView, Image, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { useParams } from 'react-router-native';
+import { useNavigation } from "@react-navigation/native";
 
-function CadastroServico({ navigation }, params) {
+function CadastroServico() {
+
+    const { cdServico } = useParams();
+    const navigation = useNavigation();
 
     const [nome, setNome] = useState('');
     const [valor, setValor] = useState('');
     const [tempo, setTempo] = useState('');
 
+    useEffect(() => {
+        // // async function getParticipante() {
+        // //     var response = await api.get('/participante.details/' + cdParticipante);
+
+        //     setRa(response.data.ra);
+        //     setCpf(response.data.cpf);
+        //     setNome(response.data.nome);
+        //     setTelefone(response.data.telefone);
+        //     setEmail(response.data.email);
+        // // }
+        // // getParticipante();
+        function a(){
+            setNome('teste');
+            setValor('30');
+            setTempo('30');
+        }
+
+        a()
+
+        console.log(nome)
+        console.log(valor)
+        console.log(tempo)
+    }, [])
+
+
     function handleSubmit() {
 
-        //TODO: chama api cadastro
+        //TODO: chama api edicao
 
         console.log(nome)
         console.log(valor)
         console.log(tempo)
 
         alert("Editado com sucesso!");
+
+        navigation.navigate('MainTab');
     }
+
+
 
     return (
         <KeyboardAvoidingView style={styles.background}>

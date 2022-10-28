@@ -7,10 +7,11 @@ function CadastroServico() {
     const [nome, setNome] = useState('');
     const [valor, setValor] = useState('');
     const [tempo, setTempo] = useState('');
+    const navigation = useNavigation();
 
     function handleSubmit() {
 
-        //TODO: chama api cadastro
+        //TODO: chamar api cadastro
 
         console.log(nome)
         console.log(valor)
@@ -23,7 +24,7 @@ function CadastroServico() {
         navigation.navigate('Lista servicos');
     }
 
-    const navigation = useNavigation();
+    
 
     return (
         <KeyboardAvoidingView style={styles.background}>
