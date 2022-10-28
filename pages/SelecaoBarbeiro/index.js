@@ -1,37 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, FlatList, Image } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
+import api from '../../services/api';
 
 function SelecaoBarbeiro() {
 
-    const [servico, setServico] = useState([
-        {
-            "nome": "Rafael Testa",
-        },
-        {
-            "nome": "Henrique Borges",
-        },
-        {
-            "nome": "Felipe Bender",
-        },
-        {
-            "nome": "Paulo Nicolas",
-        },
+    const [allBarbeiros, setAllBarbeiros] = useState([]);
 
 
-    ]);
+    useEffect(() => {
+        getAllBarbeiros();
+    }, [])
+
+
+    async function getAllBarbeiros() {
+        const response = await api.get('/barbeiro',);
+        setAllBarbeiros(response.data);
+    }
+
+
+
 
     const navigation = useNavigation();
 
     function onClickList(item) {
         //TODO: adicionar o que sera feito ao clicar
-        navigation.navigate('');
+        navigation.navigate('Selecao servico');
         console.log(item);
     }
-
-    useEffect(() => {
-        //TODO: Adicionar metodo da chamada da API para buscar servicos
-    }, [])
 
     return (
         <>
@@ -40,7 +36,7 @@ function SelecaoBarbeiro() {
                 <View style={styles.body}>
                     <FlatList
                         style={styles.flatlist}
-                        data={servico}
+                        data={allBarbeiros}
                         //TODO: ver qual vai ser a chave
                         keyExtractor={item => item.nome}
                         showsHorizontalScrollIndicator={false}

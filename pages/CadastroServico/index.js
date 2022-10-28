@@ -1,30 +1,39 @@
 import React, { useState } from 'react';
 import { View, KeyboardAvoidingView, Image, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
+import api from '../../services/api';
 
 function CadastroServico() {
 
     const [nome, setNome] = useState('');
     const [valor, setValor] = useState('');
-    const [tempo, setTempo] = useState('');
     const navigation = useNavigation();
 
-    function handleSubmit() {
+    async function handleSubmit() {
 
-        //TODO: chamar api cadastro
+        try{
+            const response = await api.post('/servico', {
+                nome,
+                valor,
+                barbeiroCd: 1
+            })
+    
+            alert("Cadastrado com sucesso!");
+            setNome('');
+            setValor('');
+        }catch(error){
+            const { data } = error.response;
+            alert(data.error);
+        }
 
-        console.log(nome)
-        console.log(valor)
-        console.log(tempo)
-
-        alert("Cadastrado com sucesso!");
     }
+
 
     function btnEditar() {
         navigation.navigate('Lista servicos');
     }
 
-    
+
 
     return (
         <KeyboardAvoidingView style={styles.background}>
@@ -48,21 +57,12 @@ function CadastroServico() {
                     onChangeText={e => setValor(e)}
                     keyboardType="decimal-pad"
                 />
-                <Text style={styles.textLabel}>Tempo</Text>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Tempo"
-                    autoCorrect={false}
-                    value={tempo}
-                    onChangeText={e => setTempo(e)}
-                    keyboardType="numeric"
-                />
 
                 <TouchableOpacity style={styles.btnSubmit} onPress={handleSubmit}>
                     <Text style={styles.submitText}>Cadastrar Serviço</Text>
                 </TouchableOpacity>
 
-                
+
                 <TouchableOpacity style={styles.btnEditar} onPress={btnEditar}>
                     <Text style={styles.submitText}>Editar um Serviço</Text>
                 </TouchableOpacity>

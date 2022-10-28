@@ -1,102 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, FlatList, Image } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
+import api from '../../services/api';
 
 function SelecaoServico() {
 
-    const [servico, setServico] = useState([
-        {
-            "nome": "Corte maquina",
-            "tempo": "25",
-            "valor": "30",
-        },
-        {
-            "nome": "dgdgrg",
-            "tempo": "27",
-            "valor": "35",
-        },
-        {
-            "nome": "drgdrgdr",
-            "tempo": "20",
-            "valor": "20",
-        },
-        {
-            "nome": "Corte sefefeff",
-            "tempo": "20",
-            "valor": "20",
-        },
-        {
-            "nome": "Corte sefsefse",
-            "tempo": "20",
-            "valor": "20",
-        },
-        {
-            "nome": "Corte fssefsefsef",
-            "tempo": "20",
-            "valor": "20",
-        },
-        {
-            "nome": "Corte sfsffsefseffseff",
-            "tempo": "20",
-            "valor": "20",
-        },
-        {
-            "nome": "Corte fthfthfthjjftjftj",
-            "tempo": "20",
-            "valor": "20",
-        },
-        {
-            "nome": "Corte fththjfjftjtjfft",
-            "tempo": "20",
-            "valor": "20",
-        },
-        {
-            "nome": "Corte ftfthfthjfjftjjf",
-            "tempo": "20",
-            "valor": "20",
-        },
-        {
-            "nome": "Corte ffthfthfthfthfhth",
-            "tempo": "20",
-            "valor": "20",
-        },
-        {
-            "nome": "Corte fthftfththfthfthft",
-            "tempo": "20",
-            "valor": "20",
-        },
-        {
-            "nome": "Corte fhtfthftthft",
-            "tempo": "20",
-            "valor": "20",
-        },
-        {
-            "nome": "Corte ftthfthh",
-            "tempo": "20",
-            "valor": "20",
-        },
-        {
-            "nome": "Corte fwefefewef",
-            "tempo": "20",
-            "valor": "20",
-        },
-        {
-            "nome": "Corte fthfhfthfth",
-            "tempo": "20",
-            "valor": "20",
-        },
-        {
-            "nome": "Corte fthfthfththt",
-            "tempo": "20",
-            "valor": "20",
-        },
-        {
-            "nome": "Corte fththfthftfth",
-            "tempo": "20",
-            "valor": "20",
-        },
+    const [allServicos, setAllServicos] = useState([]);
 
-    ]);
+    useEffect(() => {
+        getAllServicos();
+    }, [])
+
+
+    async function getAllServicos() {
+        const response = await api.get('/servico',);
+        setAllServicos(response.data);
+    }
+
+
 
     const navigation = useNavigation();
 
@@ -106,9 +27,6 @@ function SelecaoServico() {
         console.log(item);
     }
 
-    useEffect(() => {
-        //TODO: Adicionar metodo da chamada da API para buscar servicos
-    }, [])
 
     return (
         <>
@@ -117,7 +35,7 @@ function SelecaoServico() {
                 <View style={styles.body}>
                     <FlatList
                         style={styles.flatlist}
-                        data={servico}
+                        data={allServicos}
                         //TODO: ver qual vai ser a chave
                         keyExtractor={item => item.nome}
                         showsHorizontalScrollIndicator={false}
@@ -130,7 +48,6 @@ function SelecaoServico() {
                                 <View style={styles.ContainerText}>
                                     <Text style={styles.textNome}>{item.nome}</Text>
                                     <Text style={styles.textValor}>Valor: R$ {item.valor}</Text>
-                                    <Text style={styles.textTempo}>Tempo: {item.tempo} min</Text>
                                 </View>
                             </TouchableOpacity>
                         )}
@@ -170,13 +87,6 @@ const styles = StyleSheet.create({
         fontSize: 15,
         color: "#333",
         fontWeight: "bold",
-        marginTop: 4,
-        textAlign: "left"
-    },
-
-    textTempo: {
-        fontSize: 12,
-        color: "#333",
         marginTop: 4,
         textAlign: "left"
     },
