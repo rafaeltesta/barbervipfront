@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Text, StyleSheet, FlatList, Image } from 'react
 import { useNavigation } from "@react-navigation/native";
 import api from '../../services/api';
 
-function SelecaoServico() {
+function ListaServicos() {
 
     const [allServicos, setAllServicos] = useState([]);
 
@@ -23,7 +23,7 @@ function SelecaoServico() {
 
     function onClickList(item) {
         //TODO: adicionar o que sera feito ao clicar
-        navigation.navigate('Selecao barbeiro')
+        navigation.navigate('Editar servico')
         console.log(item);
     }
 
@@ -31,7 +31,7 @@ function SelecaoServico() {
     return (
         <>
             <View style={styles.container}>
-                <Text style={styles.title}>Selecione o serviço desejado:</Text>
+                <Text style={styles.title}>Selecione o serviço para edição:</Text>
                 <View style={styles.body}>
                     <FlatList
                         style={styles.flatlist}
@@ -60,7 +60,7 @@ function SelecaoServico() {
 };
 
 
-export default SelecaoServico;
+export default ListaServicos;
 
 
 const styles = StyleSheet.create({

@@ -1,96 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, FlatList, Image } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
+import api from '../../services/api';
 
 function SelecaoBarbearia() {
 
-    const [servico, setServico] = useState([
-        {
-            "nome": "Los magnos",
-            "endereco": "adawddddddddddddd25",
-        },
-        {
-            "nome": "Peaky Blinderds Barber",
-            "endereco": "adwwwwwwwwww27",
-        },
-        {
-            "nome": "Pituleta Barber shop",
-            "endereco": "awddddddddddddd20",
-        },
-        {
-            "nome": "Madara Ihuka shop",
-            "endereco": "awddddddddddddd20",
-        },
-        {
-            "nome": "Pill Barber",
-            "endereco": "awdawdawdawdawdaw",
-        },
-        {
-            "nome": "Piu Barber Shop",
-            "endereco": "awddddddd20",
-        },
-        {
-            "nome": "Corte sfsffsefseffseff",
-            "endereco": "2awdawddddddddd0",
-        },
-        {
-            "nome": "Corte fthfthfthjjftjftj",
-            "endereco": "2awdawdawdawdawdawdawdawdf0",
-        },
-        {
-            "nome": "Corte fththjfjftjtjfft",
-            "endereco": "2sefsefsefsefsefsefsefsefsefsefsef0",
-        },
-        {
-            "nome": "Corte ftfthfthjfjftjjf",
-            "endereco": "20sefsefsefsefsef",
-        },
-        {
-            "nome": "Corte ffthfthfthfthfhth",
-            "endereco": "awdawawfafsefgsg",
-        },
-        {
-            "nome": "Corte fthftfththfthfthft",
-            "endereco": "20",
-        },
-        {
-            "nome": "Corte fhtfthftthft",
-            "endereco": "20",
-        },
-        {
-            "nome": "Corte ftthfthh",
-            "endereco": "20",
-        },
-        {
-            "nome": "Corte fwefefewef",
-            "endereco": "20",
-        },
-        {
-            "nome": "Corte fthfhfthfth",
-            "endereco": "20",
-        },
-        {
-            "nome": "Corte fthfthfththt",
-            "endereco": "20",
-        },
-        {
-            "nome": "Corte fththfthftfth",
-            "endereco": "20",
-        },
+    const [allBarbearias, setAllBarbearias] = useState([]);
 
-    ]);
+
+    useEffect(() => {
+        getAllBarbearias();
+    }, [])
+
+
+    async function getAllBarbearias() {
+        const response = await api.get('/barbearia',);
+        setAllBarbearias(response.data);
+    }
+
+
+
 
     const navigation = useNavigation();
 
     function onClickList(item) {
         //TODO: adicionar o que sera feito ao clicar
-        navigation.navigate('Selecao servico');
+        navigation.navigate('Selecao barbeiro');
         console.log(item);
     }
 
-    useEffect(() => {
-        //TODO: Adicionar metodo da chamada da API para buscar barbearias
-    }, [])
 
     return (
         <>
@@ -99,7 +37,7 @@ function SelecaoBarbearia() {
                 <View style={styles.body}>
                     <FlatList
                         style={styles.flatlist}
-                        data={servico}
+                        data={allBarbearias}
                         //TODO: ver qual vai ser a chave
                         keyExtractor={item => item.nome}
                         showsHorizontalScrollIndicator={false}

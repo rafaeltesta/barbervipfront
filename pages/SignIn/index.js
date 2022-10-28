@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { View, KeyboardAvoidingView, Image, TextInput, TouchableOpacity, Text, StyleSheet, } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { CadastroUser } from "../CadastroUser/index";
-import  AsyncStorage  from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Api from "../../Api";
 
 function SignIn({ navigation }, params) {
@@ -19,14 +19,24 @@ function SignIn({ navigation }, params) {
 
       let json = await Api.signIn(emailField, input);
 
-      if (json ==='abc') {
-        await AsyncStorage.setItem('token', json);
-
+      if (json) {
+        await AsyncStorage.setItem('token', json.token);
+        await AsyncStorage.setItem('tipo', json.tipo);
         console.log(json);
 
-        navigation.reset({
-          routes: [{ name: 'MainTab' }]
-        });
+        if (json.tipo) {
+          console.log('1')
+
+          navigation.reset({
+            routes: [{ name: 'MainTabBarber' }]
+          });
+        } else {
+          console.log('2')
+
+          navigation.reset({
+            routes: [{ name: 'MainTab' }]
+          });
+        }
       } else {
         alert('E-mail e/ou senha errados!');
       }
