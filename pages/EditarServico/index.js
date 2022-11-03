@@ -2,38 +2,28 @@ import React, { useState, useEffect } from 'react';
 import { View, KeyboardAvoidingView, Image, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { useParams } from 'react-router-native';
 import { useNavigation } from "@react-navigation/native";
+import api from '../../services/api';
 
-function CadastroServico() {
+function EditarServico({navigate, route}) {
 
-    const { cdServico } = useParams();
     const navigation = useNavigation();
 
     const [nome, setNome] = useState('');
     const [valor, setValor] = useState('');
-    const [tempo, setTempo] = useState('');
+
 
     useEffect(() => {
-        // // async function getParticipante() {
-        // //     var response = await api.get('/participante.details/' + cdParticipante);
+        async function getParticipante() {
+            const response = await api.get('/servico.details/' + route.params.cdServico);
 
-        //     setRa(response.data.ra);
-        //     setCpf(response.data.cpf);
-        //     setNome(response.data.nome);
-        //     setTelefone(response.data.telefone);
-        //     setEmail(response.data.email);
-        // // }
-        // // getParticipante();
-        function a(){
-            setNome('teste');
-            setValor('30');
-            setTempo('30');
+            setNome(response.data.nome);
+            setValor(response.data.valor);
         }
+        getParticipante();
 
-        a()
-
+        
         console.log(nome)
         console.log(valor)
-        console.log(tempo)
     }, [])
 
 
@@ -74,7 +64,7 @@ function CadastroServico() {
                     onChangeText={e => setValor(e)}
                     keyboardType="decimal-pad"
                 />
-                <Text style={styles.textLabel}>Tempo</Text>
+                {/* <Text style={styles.textLabel}>Tempo</Text>
                 <TextInput
                     style={styles.input}
                     placeholder="Tempo"
@@ -82,7 +72,7 @@ function CadastroServico() {
                     value={tempo}
                     onChangeText={e => setTempo(e)}
                     keyboardType="numeric"
-                />
+                /> */}
 
                 <TouchableOpacity style={styles.btnSubmit} onPress={handleSubmit}>
                     <Text style={styles.submitText}>Editar Serviço</Text>
@@ -153,4 +143,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default CadastroServico;
+export default EditarServico;
