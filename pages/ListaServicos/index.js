@@ -23,7 +23,7 @@ function ListaServicos() {
 
     function onClickList(item) {
         //TODO: adicionar o que sera feito ao clicar
-        navigation.navigate('Editar servico')
+        navigation.navigate('Editar servico', {cdServico:item.cdServico})
         console.log(item);
     }
 
