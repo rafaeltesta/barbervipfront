@@ -27,17 +27,23 @@ function EditarServico({navigate, route}) {
     }, [])
 
 
-    function handleSubmit() {
+    async function handleSubmit() {
 
-        //TODO: chama api edicao
+        try{
+            const response = await api.put('/servico/' + route.params.cdServico, {
+                nome,
+                valor,
+                barbeiroCd: 1
+            })
+    
+            alert("Alterado com sucesso!");
+            navigation.navigate('MainTab');
+        }catch(error){
+            const { data } = error.response;
+            alert(data.error);
+        }
 
-        console.log(nome)
-        console.log(valor)
-        console.log(tempo)
-
-        alert("Editado com sucesso!");
-
-        navigation.navigate('MainTab');
+        
     }
 
 
