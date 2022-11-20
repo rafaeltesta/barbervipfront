@@ -38,7 +38,7 @@ function MainTab() {
             <Tab.Screen name="Home" component={Home} />
             <Tab.Screen name="Agendar" component={SelecaoBarbearia} />
             <Tab.Screen name="Reservas" component={Reservas} />
-            <Tab.Screen name="Cadastro Serviço" component={CadastroServico} />
+            {/* <Tab.Screen name="Cadastro Serviço" component={CadastroServico} /> */}
         </Tab.Navigator>
     )
 

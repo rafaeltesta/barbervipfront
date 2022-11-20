@@ -12,7 +12,7 @@ import EditarServico from "../pages/EditarServico";
 import ListaServicos from "../pages/ListaServicos";
 import MainTabBarber from "./MainTabBarber.routes";
 import Agendamento from "../pages/Agendamento";
-import Agendamentos from "../pages/Agen";
+import Agendamentos from "../pages/Agendamento";
 import Confirm from "../pages/ConfirmAgendamento";
 
 const Stack = createStackNavigator();

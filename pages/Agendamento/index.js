@@ -1,136 +1,84 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRoute } from 'react';
 import { View, KeyboardAvoidingView, FlatList, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { useParams } from 'react-router-native';
 import { useNavigation } from "@react-navigation/native";
 import api from '../../services/api';
+import {DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 
-function Agendamento({ navigate, route }) {
-
-    const navigation = useNavigation();
-
-    const [ano, setAno] = useState(0);
-    const [mes, setMes] = useState(0);
-    const [dia, setDia] = useState(0);
-    const [hora, setHora] = useState(null);
-    const [listaDias, setListaDias] = useState([]);
-    const [listaHoras, setListaHoras] = useState([]);
-
-    const meses = [
-        'Janeiro',
-        'Fevereiro',
-        'Março',
-        'Abril',
-        'Maio',
-        'Junho',
-        'Julho',
-        'Agosto',
-        'Setembro',
-        'Outubro',
-        'Novembro',
-        'Dezembro'
-    ];
-
-    const dias = [
-        'Dom',
-        'Seg',
-        'Ter',
-        'Qua',
-        'Qui',
-        'Sex',
-        'Sab'
-    ];
+function Agendamentos({ navigate, route, navigation }) {
 
 
+    // const navigation = useNavigation();
 
+    const [date, setDate] = useState(new Date());
+    const [hours, setHours] = useState([]);
+    
+    
     useEffect(() => {
-        let diasNoMes = new Date(ano, mes + 1, 0).getDate();
-        let newListDias = [];
+      async function loadAvailable() {
+        const response = await api.get(`/providers/available`, {
+          params: {
+            date: date.getTime(),
+          },
+        });
+        setHours(response.data);
 
-        for (let i = 1; i < diasNoMes; i++) {
+      }
+      loadAvailable();
+    }, [date]);
+  
+ 
 
-            let d = new Date(ano, mes, i);
-            let anoTemp = d.getFullYear();
-            let mesTemp = d.getMonth() + 1;
-            let diaTemp = d.getDate();
-            mesTemp = mesTemp < 10 ? '0' + mesTemp : mesTemp;
-            diaTemp = diaTemp < 10 ? '0' + diaTemp : diaTemp;
-            let dataSelec = anoTemp + '-' + mesTemp + '-' + diaTemp;
+    const onChange = (event, selectedDate) => {
+      const currentDate = selectedDate;
 
-
-            newListDias.push({
-                status: true,
-                diaSemana: dias[d.getDay()],
-                numeroDia: i,
-            });
-        }
-
-        setListaDias(newListDias);
-        setDia(0);
-        setListaHoras([]);
-        setHora(0);
-
-    }, [mes, ano]);
-
-    useEffect(() => {
-        let today = new Date();
-        setAno(today.getFullYear());
-        setMes(today.getMonth());
-        setDia(today.getDate());
-    }, []);
-
-
-    async function handleSubmit() {
-
-
+      setDate(currentDate);
+      
     };
-
-    async function handlePrevClick() {
-        let mountDate = new Date(ano, mes, 1);
-        mountDate.setMonth(mountDate.getMonth() - 1);
-        setAno(mountDate.getFullYear());
-        setMes(mountDate.getMonth());
-        setDia(0);
+  
+    const showMode = (currentMode) => {
+        DateTimePickerAndroid.open({
+        value: date,
+        onChange,
+        mode: currentMode,
+        is24Hour: true,
+      });
     };
-
-    async function handleNextClick() {
-        let mountDate = new Date(ano, mes, 1);
-        mountDate.setMonth(mountDate.getMonth() + 1);
-        setAno(mountDate.getFullYear());
-        setMes(mountDate.getMonth());
-        setDia(0);
+  
+    const showDatepicker = () => {
+      showMode('date');
     };
-
+  
+    function handleSelectHour(horario) {
+        navigation.navigate('Confirm', {
+            horario,
+          servicoCd: route.params.cdServico,
+          barbeiroCd: route.params.cdBarbeiro,
+        });
+      }
+   
     return (
         <KeyboardAvoidingView style={styles.background}>
             <Text style={styles.title}>Selecione um horário</Text>
             <View style={styles.container}>
-
-                <TouchableOpacity style={styles.btnPrev} onPress={handlePrevClick}>
-                    <Text style={styles.submitText}>{"<"}</Text>
-                </TouchableOpacity>
-
-                <Text style={styles.date}>{meses[mes]} {ano}</Text>
-
-                <TouchableOpacity style={styles.btnNext} onPress={handleNextClick}>
-                    <Text style={styles.submitText}>{">"}</Text>
-                </TouchableOpacity>
+                {/* <DateInput date={date} onChange={setDate} /> */}
             </View>
+            < TouchableOpacity style={styles.btnSubmit}  onPress={showDatepicker}>
+                <Text style={styles.submitText}>Selecione uma data</Text>
+            </TouchableOpacity >
 
             <FlatList
                 style={styles.flatlist}
-                data={listaDias}
+                data={hours}
                 //TODO: ver qual vai ser a chave
                 // keyExtractor={item => item.nome}
                 showsHorizontalScrollIndicator={false}
                 horizontal={true}
                 renderItem={({ item }) => (
-                    <TouchableOpacity style={styles.ContainerView} onPress={() => onClickList(item)}>
-                        <View style={styles.TextView}>
+                    <TouchableOpacity style={styles.ContainerView} onPress={() => item.available ? handleSelectHour(item.value) : null}>
+                        <View style={item.available ? styles.TextView : styles.TextViewOp}>
                             <View style={styles.DiaSemana}>
-                                <Text style={styles.textDiaSemana}>{item.diaSemana}</Text>
-                            </View>
-                            <View style={styles.Dia}>
-                                <Text style={styles.textDia}>{item.numeroDia}</Text>
+                                <Text style={styles.textDiaSemana}>{item.time}</Text>                  
                             </View>
                         </View>
                     </TouchableOpacity>
@@ -138,28 +86,10 @@ function Agendamento({ navigate, route }) {
                 }
             />
 
-            {listaHoras.length > 0 &&
-                <FlatList
-                    style={styles.flatlist}
-                    data={listaHoras}
-                    //TODO: ver qual vai ser a chave
-                    // keyExtractor={item => item.nome}
-                    showsHorizontalScrollIndicator={false}
-                    horizontal={true}
-                    renderItem={({ item }) => (
-                        <TouchableOpacity style={styles.ContainerView} onPress={() => onClickList(item)}>
-                            <View style={styles.TextView}>
-                                <View style={styles.DiaSemana}>
-                                    <Text style={styles.textDiaSemana}>{item.diaSemana}</Text>
-                                </View>
-                            </View>
-                        </TouchableOpacity>
-                    )
-                    }
-                />
-            }
+            
+           
 
-            < TouchableOpacity style={styles.btnSubmit} onPress={handleSubmit} >
+            < TouchableOpacity style={styles.btnSubmit} >
                 <Text style={styles.submitText}>Selecionar horário</Text>
             </TouchableOpacity >
         </KeyboardAvoidingView >
@@ -256,6 +186,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         // marginLeft: 20,
         fontSize: 30,
+        
     },
 
     Dia: {
@@ -284,7 +215,16 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         marginLeft: 5,
         padding: 5,
+        
+    },
+
+    TextViewOp: {
+        backgroundColor: "tomato",
+        borderRadius: 10,
+        marginLeft: 5,
+        padding: 5,
+        opacity: 0.5,
     },
 });
 
-export default Agendamento;
+export default Agendamentos;

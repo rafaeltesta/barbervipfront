@@ -6,17 +6,33 @@ import api from '../../services/api';
 import { set } from 'date-fns';
 import { UserContext } from '../../contexts/UserContext';
 import { UserReducer } from '../../reducers/UserReducer';
+const { startOfHour, parseISO, isBefore, format, subHours } =  require('date-fns');
 
 function Confirm({ navigate, route}) {
 
     const navigation = useNavigation();
 
     const {state, dispatch} = useContext(UserContext);
+    const [horario, setHorario] = useState(parseISO(route.params.horario))
+    const [barbeiroCd, setBarbeiroCd] = useState('');
+    const [servicoCd, setServicoCd] = useState('');
 
-    console.log(route.params.horario)
-    console.log(route.params.servicoCd)
-    console.log(route.params.barbeiroCd)
-    console.log(state.cdUser)
+    useEffect(() => {
+
+        getConfirm();
+
+    }, [barbeiroCd, servicoCd])
+
+    async function getConfirm() {
+        const servico = route.params.servicoCd;
+        const barbeiro = route.params.barbeiroCd;
+
+        const response = await api.get('/agendamento/' + servico + '/' + barbeiro)
+
+        setBarbeiroCd(response.data[0].barbeiro);
+        setServicoCd(response.data[0].servico);
+    }
+
 
     async function handleSubmit() {
 
@@ -47,6 +63,9 @@ function Confirm({ navigate, route}) {
         <KeyboardAvoidingView style={styles.background}>
             <Text style={styles.title}>Confirmar agendamento</Text>
             <View style={styles.container}>
+                    <Text >Barbeiro: {barbeiroCd}</Text>
+                    <Text >Serviço: {servicoCd}</Text>
+                    <Text >Horario: {new Date(horario).getDate()}/{new Date(horario).getMonth() + 1}/{new Date(horario).getFullYear()} {new Date(horario).getHours()}:{new Date(horario).getMinutes()}</Text>
                 <TouchableOpacity style={styles.btnDelete} onPress={handleSubmit}>
                     <Text style={styles.submitText}>Concluir</Text>
                 </TouchableOpacity>

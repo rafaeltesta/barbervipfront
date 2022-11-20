@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import api from '../../services/api'
 import { UserContext } from '../../contexts/UserContext';
 
-function Reservas() {
+function AgendamentosBarbeiro() {
 
     const [allReservas, setAllReservas] = useState([]);
     const { state, dispatch } = useContext(UserContext);
@@ -15,7 +15,7 @@ function Reservas() {
     }, [allReservas])
 
     async function getAllReservas() {
-        const response = await api.get('/reservas/' + state.cdUser)
+        const response = await api.get('/agendamentos/' + state.cdBarbeiro)
 
         setAllReservas(response.data);
     }
@@ -68,7 +68,7 @@ function Reservas() {
     )
 }
 
-export default Reservas;
+export default AgendamentosBarbeiro;
 
 
 
