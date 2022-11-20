@@ -2,9 +2,26 @@ import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, FlatList, Image } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import api from '../../services/api';
+
 
 function Home() {
     const navigation = useNavigation();
+
+    async function confirmSair() {
+        const token = await AsyncStorage.getItem('token');
+        const response = await api.get("/destroytoken", { token: token });
+        if (response.status === 200) {
+            AsyncStorage.clear();
+            navigation.reset({
+                routes: [{ name: 'Login' }]
+            });
+        } else {
+            console.log('erro')
+        }
+
+    }
 
     return (
         <>
@@ -25,7 +42,17 @@ function Home() {
                         <Text style={{ fontSize: 17 }}>Minhas reservas</Text>
                     </View>
                 </TouchableOpacity>
-        </View>
+
+
+
+            </View>
+            <View style={styles.containerLogout}>
+                <TouchableOpacity style={styles.containerButtonLogout} onPress={confirmSair}>
+                    <View style={styles.text}>
+                        <Text style={{ fontSize: 17 }}>Logout</Text>
+                    </View>
+                </TouchableOpacity>
+            </View>
         </>
     )
 }
@@ -40,6 +67,14 @@ const styles = StyleSheet.create({
         direction: 'inherit',
         marginTop: '50%',
     },
+
+    containerLogout: {
+        padding: 20,
+        position: 'relative',
+        direction: 'inherit',
+        marginTop: '50%',
+    },
+
     containerButtonAgendamento: {
         marginBottom: 30,
         padding: 12,
@@ -54,6 +89,16 @@ const styles = StyleSheet.create({
         padding: 12,
         borderRadius: 10,
         backgroundColor: "#4682B4",
+        display: "flex",
+        flexDirection: "column",
+        borderWidth: 1,
+        borderColor: "#eee",
+
+    },
+    containerButtonLogout: {
+        padding: 12,
+        borderRadius: 10,
+        backgroundColor: "red",
         display: "flex",
         flexDirection: "column",
         borderWidth: 1,

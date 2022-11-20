@@ -25,8 +25,9 @@ function SelecaoBarbeiro() {
 
     function onClickList(item) {
         //TODO: adicionar o que sera feito ao clicar
-        navigation.navigate('Selecao servico');
-        console.log(item);
+        navigation.navigate('Selecao servico', {
+            cdBarbeiro: item
+        });
     }
 
     return (
@@ -41,7 +42,7 @@ function SelecaoBarbeiro() {
                         keyExtractor={item => item.nome}
                         showsHorizontalScrollIndicator={false}
                         renderItem={({ item }) => (
-                            <TouchableOpacity style={styles.ContainerView} onPress={() => onClickList(item)}>
+                            <TouchableOpacity style={styles.ContainerView} onPress={() => onClickList(item.cdBarbeiro)}>
                                 <Image
                                     source={require('../../assets/barbeiro.png')}
                                     style={styles.avatar}

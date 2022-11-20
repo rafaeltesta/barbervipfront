@@ -30,7 +30,7 @@ function CadastroServico() {
 
 
     function btnEditar() {
-        navigation.navigate('Lista servicos');
+        navigation.navigate('Lista de serviços');
     }
 
 

@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Text, StyleSheet, FlatList, Image } from 'react
 import { useNavigation } from "@react-navigation/native";
 import api from '../../services/api';
 
-function SelecaoServico() {
+function SelecaoServico({ route }) {
 
     const [allServicos, setAllServicos] = useState([]);
 
@@ -23,8 +23,10 @@ function SelecaoServico() {
 
     function onClickList(item) {
         //TODO: adicionar o que sera feito ao clicar
-        navigation.navigate('Selecao barbeiro')
-        console.log(item);
+        navigation.navigate('Agendamentos', {
+            cdServico: item,
+            cdBarbeiro: route.params.cdBarbeiro,
+        });
     }
 
 
@@ -40,7 +42,7 @@ function SelecaoServico() {
                         keyExtractor={item => item.nome}
                         showsHorizontalScrollIndicator={false}
                         renderItem={({ item }) => (
-                            <TouchableOpacity style={styles.ContainerView} onPress={() => onClickList(item)}>
+                            <TouchableOpacity style={styles.ContainerView} onPress={() => onClickList(item.cdServico)}>
                                 <Image
                                     source={require('../../assets/servico.png')}
                                     style={styles.avatar}

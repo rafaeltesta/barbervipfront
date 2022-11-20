@@ -1,7 +1,10 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'https://barbervip-backend.herokuapp.com/'
+    baseURL: 'http://192.168.1.109:3333'
 })
 
 export default api;
+
+
+// 'https://barbervip-backend.herokuapp.com/'

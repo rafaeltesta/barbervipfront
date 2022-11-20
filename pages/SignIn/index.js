@@ -1,10 +1,12 @@
 // import { Montserrat_100Thin } from '@expo-google-fonts/montserrat';
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { View, KeyboardAvoidingView, Image, TextInput, TouchableOpacity, Text, StyleSheet, } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { CadastroUser } from "../CadastroUser/index";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Api from "../../Api";
+import api from "../../services/api";
+import { UserContext } from '../../contexts/UserContext';
+
 
 function SignIn({ navigation }, params) {
   /* A partir da Linha52 esta executandoe estas 2 function */
@@ -13,25 +15,49 @@ function SignIn({ navigation }, params) {
 
   const [emailField, setEmailField] = useState('');
 
+  const { dispatch: userDispatch } = useContext(UserContext);
+
   const handleSignClick = async () => {
-    console.log('aciwuahuiwawacw')
     if (emailField != '' && input != '') {
 
-      let json = await Api.signIn(emailField, input);
-
+      const json = await api.post('/login', {
+        email: emailField,
+        senha: input
+    });
+console.log(json.data)
       if (json) {
-        await AsyncStorage.setItem('token', json.token);
-        await AsyncStorage.setItem('tipo', json.tipo);
-        console.log(json);
+        const barbeiroCd = String(json.data.barbeiroCd);
+        const cdUser = String(json.data.cdUser);
+        await AsyncStorage.setItem('token', json.data.token);
+        await AsyncStorage.setItem('barbeiroCd', barbeiroCd);
+        await AsyncStorage.setItem('cdUser', cdUser);
 
-        if (json.tipo) {
-          console.log('1')
+        userDispatch({
+          type: 'setCdUser',
+          payload: {
+            cdUser: json.data.cdUser
+          }          
+        });
 
+        userDispatch({
+          type: 'setNome',
+          payload: {
+            nome: json.data.userName
+          }
+        });
+
+        userDispatch({
+          type: 'setCdBarbeiro',
+          payload: {
+            cdBarbeiro: json.data.barbeiroCd
+          }
+        });
+
+        if (barbeiroCd != 'null') {
           navigation.reset({
             routes: [{ name: 'MainTabBarber' }]
           });
         } else {
-          console.log('2')
 
           navigation.reset({
             routes: [{ name: 'MainTab' }]
@@ -53,7 +79,7 @@ function SignIn({ navigation }, params) {
       </View>
 
       <View style={styles.container}>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.buttonFacebookStyle}
           activeOpacity={0.5}
         >
@@ -67,7 +93,7 @@ function SignIn({ navigation }, params) {
 
         <Text style={styles.textOu}>
           --------------------------- ou ---------------------------
-        </Text>
+        </Text> */}
 
         <Text style={styles.textLabel}>E-MAIL </Text>
         <TextInput

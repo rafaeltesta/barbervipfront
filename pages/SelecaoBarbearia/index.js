@@ -26,7 +26,6 @@ function SelecaoBarbearia() {
     function onClickList(item) {
         //TODO: adicionar o que sera feito ao clicar
         navigation.navigate('Selecao barbeiro');
-        console.log(item);
     }
 
 

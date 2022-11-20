@@ -4,7 +4,7 @@ import { useParams } from 'react-router-native';
 import { useNavigation } from "@react-navigation/native";
 import api from '../../services/api';
 
-function EditarServico({navigate, route}) {
+function EditarServico({ navigate, route }) {
 
     const navigation = useNavigation();
 
@@ -21,7 +21,7 @@ function EditarServico({navigate, route}) {
         }
         getParticipante();
 
-        
+
         console.log(nome)
         console.log(valor)
     }, [])
@@ -29,22 +29,41 @@ function EditarServico({navigate, route}) {
 
     async function handleSubmit() {
 
-        try{
+        try {
             const response = await api.put('/servico/' + route.params.cdServico, {
                 nome,
                 valor,
                 barbeiroCd: 1
             })
-    
+
             alert("Alterado com sucesso!");
             navigation.navigate('MainTab');
-        }catch(error){
+        } catch (error) {
             const { data } = error.response;
             alert(data.error);
         }
 
-        
+
     }
+
+
+    async function handleDelete() {
+
+        try {
+            const response = await api.delete('/servico/' + route.params.cdServico, {
+
+            })
+
+            alert("Excluido com sucesso!");
+            navigation.navigate('MainTab');
+        } catch (error) {
+            const { data } = error.response;
+            alert(data.error);
+        }
+
+
+    }
+
 
 
 
@@ -82,6 +101,9 @@ function EditarServico({navigate, route}) {
 
                 <TouchableOpacity style={styles.btnSubmit} onPress={handleSubmit}>
                     <Text style={styles.submitText}>Editar Serviço</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.btnDelete} onPress={handleDelete}>
+                    <Text style={styles.submitText}>Excluir Serviço</Text>
                 </TouchableOpacity>
             </View>
         </KeyboardAvoidingView>
@@ -127,6 +149,16 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 7,
         marginTop: 50,
+    },
+
+    btnDelete: {
+        backgroundColor: 'red',
+        width: '90%',
+        height: 45,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 7,
+        marginTop: 10,
     },
 
     submitText: {
