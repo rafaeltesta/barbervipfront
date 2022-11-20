@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, KeyboardAvoidingView, Image, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import api from '../../services/api';
+import { UserContext } from '../../contexts/UserContext';
 
 function CadastroServico() {
 
+    const {state, dispatch} = useContext(UserContext);
     const [nome, setNome] = useState('');
     const [valor, setValor] = useState('');
     const navigation = useNavigation();
@@ -15,7 +17,7 @@ function CadastroServico() {
             const response = await api.post('/servico', {
                 nome,
                 valor,
-                barbeiroCd: 1
+                barbeiroCd: state.cdBarbeiro
             })
     
             alert("Cadastrado com sucesso!");
@@ -37,7 +39,7 @@ function CadastroServico() {
 
     return (
         <KeyboardAvoidingView style={styles.background}>
-            <Text style={styles.title}>Cadastrado de serviço</Text>
+            {/* <Text style={styles.title}>Cadastrado de serviço</Text> */}
             <View style={styles.container}>
 
                 <Text style={styles.textLabel}>Nome</Text>

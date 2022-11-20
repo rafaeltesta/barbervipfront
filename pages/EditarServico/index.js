@@ -37,7 +37,7 @@ function EditarServico({ navigate, route }) {
             })
 
             alert("Alterado com sucesso!");
-            navigation.navigate('MainTab');
+            navigation.navigate('Cadastro Serviço');
         } catch (error) {
             const { data } = error.response;
             alert(data.error);
@@ -55,7 +55,7 @@ function EditarServico({ navigate, route }) {
             })
 
             alert("Excluido com sucesso!");
-            navigation.navigate('MainTab');
+            navigation.navigate('Cadastro Serviço');
         } catch (error) {
             const { data } = error.response;
             alert(data.error);

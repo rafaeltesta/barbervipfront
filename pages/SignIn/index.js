@@ -23,8 +23,8 @@ function SignIn({ navigation }, params) {
       const json = await api.post('/login', {
         email: emailField,
         senha: input
-    });
-console.log(json.data)
+      });
+
       if (json) {
         const barbeiroCd = String(json.data.barbeiroCd);
         const cdUser = String(json.data.cdUser);
@@ -36,7 +36,7 @@ console.log(json.data)
           type: 'setCdUser',
           payload: {
             cdUser: json.data.cdUser
-          }          
+          }
         });
 
         userDispatch({

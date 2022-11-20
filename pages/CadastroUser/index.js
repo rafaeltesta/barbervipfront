@@ -1,20 +1,50 @@
 import React, { useState } from "react";
-import { View, KeyboardAvoidingView, Image, TextInput, TouchableOpacity, Text, StyleSheet,
+import {
+  View, KeyboardAvoidingView, Image, TextInput, TouchableOpacity, Text, StyleSheet,
 } from "react-native";
 
 /* Henrique 10/10 Included Hide Password */
 import { Ionicons } from "@expo/vector-icons";
-
+import api from "../../services/api";
 /* Henrique 10/10 Creating email mask sem sucesso ainda*/
 import { TextInputMask } from "react-native-masked-text";
 
 function CadastroUser({ navigation }, params) {
-  
+
   /*Henrique 10/10 A partir da Linha52 esta executando estas 2 function */
   const [input, setInput] = useState("");
   const [hidePass, setHidePass] = useState(true);
   const [inputRepeat, setRepeatInput] = useState("");
   const [hideRepeatPass, setHideRepeatPass] = useState(true);
+  const [email, setEmail] = useState("");
+  const [nome, setNome] = useState("");
+
+
+  async function handleSubmit() {
+
+    if(input != inputRepeat){
+      alert("Senhas não coincidem!");
+    }else{
+      try {
+        const response = await api.post('/user', {
+          nome: nome,
+          email: email,
+          senha: input
+        })
+  
+        alert("Cadastrado com sucesso!");
+        navigation.navigate('Login');
+      } catch (error) {
+        const { data } = error.response;
+        alert(data.error);
+      }
+    }
+
+   
+
+
+  }
+
 
   return (
     <KeyboardAvoidingView style={styles.background}>
@@ -23,7 +53,7 @@ function CadastroUser({ navigation }, params) {
       </View>
 
       <View style={styles.container}>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.buttonFacebookStyle}
           activeOpacity={0.5}
         >
@@ -39,14 +69,23 @@ function CadastroUser({ navigation }, params) {
 
         <Text style={styles.textOu}>
           --------------------------- ou ---------------------------
-        </Text>
+        </Text> */}
+
+        <Text style={styles.textLabel}>NOME</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Informe seu nome"
+          autoCorrect={false}
+          onChangeText={(texto) => {setNome(texto)}}
+        />
+
 
         <Text style={styles.textLabel}>E-MAIL </Text>
         <TextInput
           style={styles.input}
           placeholder="Informe seu e-mail"
           autoCorrect={false}
-          onChangeText={() => {}}
+          onChangeText={(texto) => {setEmail(texto)}}
         />
 
         {/* Henrique-10\10 - include hide password  */}
@@ -95,7 +134,7 @@ function CadastroUser({ navigation }, params) {
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity style={styles.btnSubmit}>
+        <TouchableOpacity style={styles.btnSubmit} onPress={handleSubmit}>
           <Text style={styles.submitText}>Cadastrar</Text>
         </TouchableOpacity>
         <TouchableOpacity
