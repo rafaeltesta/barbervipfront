@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, FlatList, Image } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import api from '../../services/api';
+import { UserContext } from '../../contexts/UserContext';
 
 function ListaServicos() {
 
     const [allServicos, setAllServicos] = useState([]);
+    const { state, dispatch } = useContext(UserContext);
 
     useEffect(() => {
         getAllServicos();
@@ -13,7 +15,7 @@ function ListaServicos() {
 
 
     async function getAllServicos() {
-        const response = await api.get('/servico',);
+        const response = await api.get('/servico/' + state.cdBarbeiro);
         setAllServicos(response.data);
     }
 

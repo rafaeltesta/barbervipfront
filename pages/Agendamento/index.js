@@ -16,7 +16,7 @@ function Agendamentos({ navigate, route, navigation }) {
     
     useEffect(() => {
       async function loadAvailable() {
-        const response = await api.get(`/providers/available`, {
+        const response = await api.get(`/providers/available/` + route.params.cdBarbeiro, {
           params: {
             date: date.getTime(),
           },
@@ -85,13 +85,6 @@ function Agendamentos({ navigate, route, navigation }) {
                 )
                 }
             />
-
-            
-           
-
-            < TouchableOpacity style={styles.btnSubmit} >
-                <Text style={styles.submitText}>Selecionar horário</Text>
-            </TouchableOpacity >
         </KeyboardAvoidingView >
 
     );

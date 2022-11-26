@@ -13,7 +13,7 @@ function SelecaoServico({ route }) {
 
 
     async function getAllServicos() {
-        const response = await api.get('/servico',);
+        const response = await api.get('/servico/' + route.params.cdBarbeiro,);
         setAllServicos(response.data);
     }
 
