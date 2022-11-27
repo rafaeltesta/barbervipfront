@@ -7,9 +7,6 @@ import {DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 
 function Agendamentos({ navigate, route, navigation }) {
 
-
-    // const navigation = useNavigation();
-
     const [date, setDate] = useState(new Date());
     const [hours, setHours] = useState([]);
     
@@ -61,7 +58,6 @@ function Agendamentos({ navigate, route, navigation }) {
         <KeyboardAvoidingView style={styles.background}>
             <Text style={styles.title}>Selecione um horário</Text>
             <View style={styles.container}>
-                {/* <DateInput date={date} onChange={setDate} /> */}
             </View>
             < TouchableOpacity style={styles.btnSubmit}  onPress={showDatepicker}>
                 <Text style={styles.submitText}>Selecione uma data</Text>

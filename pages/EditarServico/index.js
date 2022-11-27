@@ -89,16 +89,6 @@ function EditarServico({ navigate, route }) {
                     onChangeText={e => setValor(e)}
                     keyboardType="decimal-pad"
                 />
-                {/* <Text style={styles.textLabel}>Tempo</Text>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Tempo"
-                    autoCorrect={false}
-                    value={tempo}
-                    onChangeText={e => setTempo(e)}
-                    keyboardType="numeric"
-                /> */}
-
                 <TouchableOpacity style={styles.btnSubmit} onPress={handleSubmit}>
                     <Text style={styles.submitText}>Editar Serviço</Text>
                 </TouchableOpacity>

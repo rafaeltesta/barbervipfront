@@ -17,58 +17,74 @@ function SignIn({ navigation }, params) {
 
   const { dispatch: userDispatch } = useContext(UserContext);
 
-  const handleSignClick = async () => {
-    if (emailField != '' && input != '') {
+  async function handleSignClick() {
+    if (emailField === '' && input === '') {
+      alert("Preencha os campos!");
 
-      const json = await api.post('/login', {
-        email: emailField,
-        senha: input
-      });
 
-      if (json) {
-        const barbeiroCd = String(json.data.barbeiroCd);
-        const cdUser = String(json.data.cdUser);
-        await AsyncStorage.setItem('token', json.data.token);
-        await AsyncStorage.setItem('barbeiroCd', barbeiroCd);
-        await AsyncStorage.setItem('cdUser', cdUser);
-
-        userDispatch({
-          type: 'setCdUser',
-          payload: {
-            cdUser: json.data.cdUser
-          }
-        });
-
-        userDispatch({
-          type: 'setNome',
-          payload: {
-            nome: json.data.userName
-          }
-        });
-
-        userDispatch({
-          type: 'setCdBarbeiro',
-          payload: {
-            cdBarbeiro: json.data.barbeiroCd
-          }
-        });
-
-        if (barbeiroCd != 'null') {
-          navigation.reset({
-            routes: [{ name: 'MainTabBarber' }]
-          });
-        } else {
-
-          navigation.reset({
-            routes: [{ name: 'MainTab' }]
-          });
-        }
-      } else {
-        alert('E-mail e/ou senha errados!');
-      }
 
     } else {
-      alert("Preencha os campos!");
+
+
+      try {
+        console.log('try')
+        const json = await api.post('/login', {
+          email: emailField,
+          senha: input
+        });
+
+        console.log(!json.data.errorJson)
+
+        if (!json.data.error) {
+          console.log('entrou')
+          const barbeiroCd = String(json.data.barbeiroCd);
+          const cdUser = String(json.data.cdUser);
+          await AsyncStorage.setItem('token', json.data.token);
+          await AsyncStorage.setItem('barbeiroCd', barbeiroCd);
+          await AsyncStorage.setItem('cdUser', cdUser);
+
+          userDispatch({
+            type: 'setCdUser',
+            payload: {
+              cdUser: json.data.cdUser
+            }
+          });
+
+          userDispatch({
+            type: 'setNome',
+            payload: {
+              nome: json.data.userName
+            }
+          });
+
+          userDispatch({
+            type: 'setCdBarbeiro',
+            payload: {
+              cdBarbeiro: json.data.barbeiroCd
+            }
+          });
+
+          if (barbeiroCd != 'null') {
+            navigation.reset({
+              routes: [{ name: 'MainTabBarber' }]
+            });
+          } else {
+
+            navigation.reset({
+              routes: [{ name: 'MainTab' }]
+            });
+          }
+        }
+        console.log('a')
+
+
+
+      } catch (error) {
+        console.log("error: " + error)
+        const { data } = error.response;
+        alert(data.error);
+      }
+
     }
   }
 

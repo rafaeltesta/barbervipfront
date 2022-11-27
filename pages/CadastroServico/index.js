@@ -24,6 +24,8 @@ function CadastroServico() {
             setNome('');
             setValor('');
         }catch(error){
+            console.log("error servico: " + error)
+            console.log("error servico: " + error.response)
             const { data } = error.response;
             alert(data.error);
         }

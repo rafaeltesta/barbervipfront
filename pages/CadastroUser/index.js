@@ -22,25 +22,30 @@ function CadastroUser({ navigation }, params) {
 
   async function handleSubmit() {
 
-    if(input != inputRepeat){
-      alert("Senhas não coincidem!");
-    }else{
-      try {
-        const response = await api.post('/user', {
-          nome: nome,
-          email: email,
-          senha: input
-        })
-  
-        alert("Cadastrado com sucesso!");
-        navigation.navigate('Login');
-      } catch (error) {
-        const { data } = error.response;
-        alert(data.error);
+    if (input === '' || inputRepeat === '' || email === '' || nome === '') {
+      alert("Insira os dados!");
+    } else {
+
+
+      if (input != inputRepeat) {
+        alert("Senhas não coincidem!");
+      } else {
+        try {
+          const response = await api.post('/user', {
+            nome: nome,
+            email: email,
+            senha: input
+          })
+
+          alert("Cadastrado com sucesso!");
+          navigation.navigate('Login');
+        } catch (error) {
+          const { data } = error.response;
+          alert(data.error);
+        }
       }
     }
 
-   
 
 
   }
@@ -76,7 +81,7 @@ function CadastroUser({ navigation }, params) {
           style={styles.input}
           placeholder="Informe seu nome"
           autoCorrect={false}
-          onChangeText={(texto) => {setNome(texto)}}
+          onChangeText={(texto) => { setNome(texto) }}
         />
 
 
@@ -85,7 +90,7 @@ function CadastroUser({ navigation }, params) {
           style={styles.input}
           placeholder="Informe seu e-mail"
           autoCorrect={false}
-          onChangeText={(texto) => {setEmail(texto)}}
+          onChangeText={(texto) => { setEmail(texto) }}
         />
 
         {/* Henrique-10\10 - include hide password  */}
