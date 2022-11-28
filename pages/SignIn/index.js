@@ -1,4 +1,3 @@
-// import { Montserrat_100Thin } from '@expo-google-fonts/montserrat';
 import React, { useState, useContext } from "react";
 import { View, KeyboardAvoidingView, Image, TextInput, TouchableOpacity, Text, StyleSheet, } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
@@ -27,16 +26,12 @@ function SignIn({ navigation }, params) {
 
 
       try {
-        console.log('try')
         const json = await api.post('/login', {
           email: emailField,
           senha: input
         });
 
-        console.log(!json.data.errorJson)
-
         if (!json.data.error) {
-          console.log('entrou')
           const barbeiroCd = String(json.data.barbeiroCd);
           const cdUser = String(json.data.cdUser);
           await AsyncStorage.setItem('token', json.data.token);
@@ -75,12 +70,8 @@ function SignIn({ navigation }, params) {
             });
           }
         }
-        console.log('a')
-
-
 
       } catch (error) {
-        console.log("error: " + error)
         const { data } = error.response;
         alert(data.error);
       }

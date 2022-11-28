@@ -53,7 +53,7 @@ function AgendamentosBarbeiro() {
                             <View style={styles.ContainerView} >
                                 <View style={styles.ContainerText}>
                                     <Text style={styles.textNome}>{item.servico}</Text>
-                                    <Text style={styles.textValor}>Barbeiro: {item.barbeiro}</Text>
+                                    <Text style={styles.textValor}>Cliente: {item.cliente}</Text>
                                     <Text style={styles.textValor}>Horario: {new Date(item.horario).getDate()}/{new Date(item.horario).getMonth() + 1}/{new Date(item.horario).getFullYear()} {new Date(item.horario).getHours()}:{new Date(item.horario).getMinutes()}</Text>
                                     <TouchableOpacity style={styles.btnCancelar} onPress={() => handleDelete(item.cdAgendamento)}>
                                         <Text style={styles.textCancelar}>Cancelar</Text>
