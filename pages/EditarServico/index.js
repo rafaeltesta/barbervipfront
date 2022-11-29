@@ -1,47 +1,75 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, KeyboardAvoidingView, Image, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { useParams } from 'react-router-native';
 import { useNavigation } from "@react-navigation/native";
 import api from '../../services/api';
-import { UserContext } from '../../contexts/UserContext';
 
-function CadastroServico() {
+function EditarServico({ navigate, route }) {
 
-    const {state, dispatch} = useContext(UserContext);
+    const navigation = useNavigation();
+
     const [nome, setNome] = useState('');
     const [valor, setValor] = useState('');
-    const navigation = useNavigation();
+
+
+    useEffect(() => {
+        async function getParticipante() {
+            const response = await api.get('/servico.details/' + route.params.cdServico);
+
+            setNome(response.data.nome);
+            setValor(response.data.valor);
+        }
+        getParticipante();
+
+
+        console.log(nome)
+        console.log(valor)
+    }, [])
+
 
     async function handleSubmit() {
 
-        try{
-            const response = await api.post('/servico', {
+        try {
+            const response = await api.put('/servico/' + route.params.cdServico, {
                 nome,
                 valor,
-                barbeiroCd: state.cdBarbeiro
+                barbeiroCd: 1
             })
-    
-            alert("Cadastrado com sucesso!");
-            setNome('');
-            setValor('');
-        }catch(error){
-            console.log("error servico: " + error)
-            console.log("error servico: " + error.response)
+
+            alert("Alterado com sucesso!");
+            navigation.navigate('Cadastro Serviço');
+        } catch (error) {
             const { data } = error.response;
             alert(data.error);
         }
 
+
     }
 
 
-    function btnEditar() {
-        navigation.navigate('Lista de serviços');
+    async function handleDelete() {
+
+        try {
+            const response = await api.delete('/servico/' + route.params.cdServico, {
+
+            })
+
+            alert("Excluido com sucesso!");
+            navigation.navigate('Cadastro Serviço');
+        } catch (error) {
+            const { data } = error.response;
+            alert(data.error);
+        }
+
+
     }
+
 
 
 
     return (
         <KeyboardAvoidingView style={styles.background}>
-            {/* <Text style={styles.title}>Cadastrado de serviço</Text> */}
+            <Text style={styles.title}>Editar serviço</Text>
             <View style={styles.container}>
 
                 <Text style={styles.textLabel}>Nome</Text>
@@ -61,14 +89,11 @@ function CadastroServico() {
                     onChangeText={e => setValor(e)}
                     keyboardType="decimal-pad"
                 />
-
                 <TouchableOpacity style={styles.btnSubmit} onPress={handleSubmit}>
-                    <Text style={styles.submitText}>Cadastrar Serviço</Text>
+                    <Text style={styles.submitText}>Editar Serviço</Text>
                 </TouchableOpacity>
-
-
-                <TouchableOpacity style={styles.btnEditar} onPress={btnEditar}>
-                    <Text style={styles.submitText}>Editar um Serviço</Text>
+                <TouchableOpacity style={styles.btnDelete} onPress={handleDelete}>
+                    <Text style={styles.submitText}>Excluir Serviço</Text>
                 </TouchableOpacity>
             </View>
         </KeyboardAvoidingView>
@@ -116,6 +141,16 @@ const styles = StyleSheet.create({
         marginTop: 50,
     },
 
+    btnDelete: {
+        backgroundColor: 'red',
+        width: '90%',
+        height: 45,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 7,
+        marginTop: 10,
+    },
+
     submitText: {
         color: '#fff',
         fontSize: 18
@@ -126,23 +161,14 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     title: {
+        marginTop: 120,
         textAlign: "center",
         fontSize: 21,
         backgroundColor: "#FFF",
         marginBottom: 12,
     },
 
-    btnEditar: {
-        backgroundColor: '#333',
-        width: '90%',
-        height: 45,
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 7,
-        marginTop: 50,
-    },
-
 
 });
 
-export default CadastroServico;
+export default EditarServico;

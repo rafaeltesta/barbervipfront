@@ -3,19 +3,19 @@ import { View, TouchableOpacity, Text, StyleSheet, FlatList, Image } from 'react
 import { useNavigation } from "@react-navigation/native";
 import api from '../../services/api';
 
-function SelecaoBarbearia() {
+function SelecaoBarbeiro() {
 
-    const [allBarbearias, setAllBarbearias] = useState([]);
+    const [allBarbeiros, setAllBarbeiros] = useState([]);
 
 
     useEffect(() => {
-        getAllBarbearias();
+        getAllBarbeiros();
     }, [])
 
 
-    async function getAllBarbearias() {
-        const response = await api.get('/barbearia',);
-        setAllBarbearias(response.data);
+    async function getAllBarbeiros() {
+        const response = await api.get('/barbeiro',);
+        setAllBarbeiros(response.data);
     }
 
 
@@ -25,30 +25,30 @@ function SelecaoBarbearia() {
 
     function onClickList(item) {
         //TODO: adicionar o que sera feito ao clicar
-        navigation.navigate('Selecao barbeiro');
+        navigation.navigate('Selecao servico', {
+            cdBarbeiro: item
+        });
     }
-
 
     return (
         <>
             <View style={styles.container}>
-                <Text style={styles.title}>Selecione a barbearia desejada:</Text>
+                <Text style={styles.title}>Selecione o barbeiro desejado:</Text>
                 <View style={styles.body}>
                     <FlatList
                         style={styles.flatlist}
-                        data={allBarbearias}
+                        data={allBarbeiros}
                         //TODO: ver qual vai ser a chave
                         keyExtractor={item => item.nome}
                         showsHorizontalScrollIndicator={false}
                         renderItem={({ item }) => (
-                            <TouchableOpacity style={styles.ContainerView} onPress={() => onClickList(item)}>
+                            <TouchableOpacity style={styles.ContainerView} onPress={() => onClickList(item.cdBarbeiro)}>
                                 <Image
-                                        source={require('../../assets/barber.png')}
-                                        style={styles.avatar}
-                                    />
+                                    source={require('../../assets/barbeiro.png')}
+                                    style={styles.avatar}
+                                />
                                 <View style={styles.ContainerText}>
                                     <Text style={styles.textNome}>{item.nome}</Text>
-                                    <Text style={styles.textEndereco}>Endereço: {item.endereco}</Text>
                                 </View>
                             </TouchableOpacity>
                         )}
@@ -61,7 +61,7 @@ function SelecaoBarbearia() {
 };
 
 
-export default SelecaoBarbearia;
+export default SelecaoBarbeiro;
 
 
 const styles = StyleSheet.create({
@@ -88,15 +88,9 @@ const styles = StyleSheet.create({
         fontSize: 15,
         color: "#333",
         fontWeight: "bold",
-        marginTop: 4,
-
-    },
-
-    textEndereco: {
-        fontSize: 12,
-        color: "#333",
-        marginTop: 4,
-
+        marginTop: 10,
+        textAlign: "left"
+        
     },
 
     container: {
@@ -104,6 +98,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingVertical: 10,
         backgroundColor: "#FFF",
+        marginTop: 33,
     },
 
     body: {
@@ -123,10 +118,9 @@ const styles = StyleSheet.create({
         marginBottom: 12,
     },
     avatar: {
-         width: 50, 
-         height: 50, 
-         borderRadius: 400 / 2,
-    },
-
+        width: 50, 
+        height: 50, 
+        borderRadius: 400 / 2,
+   },
 
 });
